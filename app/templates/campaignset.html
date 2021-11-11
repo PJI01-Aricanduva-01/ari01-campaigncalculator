@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Esse é o CampSet: {{ campset_id }}</h1>
+    <h2>Essas são as campanhas: {% for ajsk in campaign %}{{ ajsk }}</br>{% endfor %}</h2>
+
+{% endblock %}
