@@ -7,8 +7,6 @@
 
 from app.models.campaignobjective import Campaign_Objective
 
-from IPython.display import display
-
 from app import db
 
 class copopulate():
@@ -27,7 +25,7 @@ class copopulate():
     def testit(self):
         for i in self.names:
             objective = Campaign_Objective(i)
-            display(objective)
+            print(objective)
 
     def doit(self):
         for i in self.names:
