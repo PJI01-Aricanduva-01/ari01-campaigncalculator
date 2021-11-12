@@ -1,0 +1,13 @@
+  <h2>Esses são os CampSet: </h2>
+  {% for x in campsets %}
+      <div class="card-group">
+          <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
+              <p class="card-text">criado em: {{ x.date_creation }}</p>
+              <a href="#" class="btn btn-primary">Editar</a>
+            </div>
+          </div>
+      </div>
+  {% endfor %} 

@@ -1,7 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Esse é o CampSet: {{ campset_id }}</h1>
-    <h2>Essas são as campanhas: {% for ajsk in campaign %}{{ ajsk }}</br>{% endfor %}</h2>
-
+<h3>Início > CampaignSet </h3>
+</br>
+<div class="container">
+    <div class="campanhas">
+        <h2>Campanhas</h2>
+        <button type="button" class="btn btn-primary">Adicionar Campanha</button>
+    </div>
+        {% for x in campaigns %}
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ x.name }}</h5>
+                    <p class="card-text">{{ x.campaign_objective_id }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Criado em: {{ x.date_creation }}</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        {% endfor %}
+</div>
 {% endblock %}
