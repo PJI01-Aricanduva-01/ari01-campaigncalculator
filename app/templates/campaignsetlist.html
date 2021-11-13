@@ -1,6 +1,8 @@
   <div class="flex">
     <h2>Esses são os CampSet: </h2>  
-    <button type="button" class="btn btn-primary">Adicionar CampaignSet</button>
+    <a href="{{ url_for('campaignsetcreate') }}">
+      <button type="button" class="btn btn-primary">Adicionar CampaignSet</button>
+    </a>
   </div>
     <div class="card-group flex">
       {% for x in campsets %}
