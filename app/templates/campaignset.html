@@ -1,28 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Início > CampaignSet </h3>
+<h3><a href="/">Início</a> > {{ campaignset.name }} </h3>
 </br>
 <div class="container">
-    <div class="campanhas">
+    <div class="flex">
         <h2>Campanhas</h2>
         <button type="button" class="btn btn-primary">Adicionar Campanha</button>
     </div>
         {% for x in campaigns %}
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem;" onClick="getid()">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ x.name }}</h5>
                     <p class="card-text">{{ x.campaign_objective_id }}</p>
+                    <param name="id" value={{ x.campaign_id }}>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Criado em: {{ x.date_creation }}</li>
                 </ul>
-                <div class="card-body">
+                <!-- <div class="card-body">
                     <a href="#" class="card-link">Card link</a>
                     <a href="#" class="card-link">Another link</a>
-                </div>
+                </div> -->
             </div>
         {% endfor %}
 </div>
+
+<script>
+    function getid(){
+      campid = event.target.parentElement.querySelector('param').getAttribute('value');
+      //window.location.href = window.location + "campaign/" + campid;
+      alert(window.location + "campaign/" + campid)
+    }
+</script>
+
 {% endblock %}
