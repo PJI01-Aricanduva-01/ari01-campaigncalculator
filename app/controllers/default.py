@@ -25,6 +25,12 @@ def index():
     campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
     return render_template('index.html', campsets=campaignsets) #chamada do template index
 
+@app.route('/sobre')
+@app.route('/about')
+def about():
+    return render_template('about.html') 
+
+
 
 #criação da rota para detalhe de campaingset
 @app.route('/campaignset/<campaignset_id>') #rota para campaignset passando o id clicado como parametro
