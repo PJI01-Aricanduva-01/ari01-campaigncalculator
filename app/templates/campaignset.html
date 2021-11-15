@@ -6,7 +6,7 @@
 <div class="container">
     <div class="flex">
         <h2>Campanhas</h2>
-        <button type="button" class="btn btn-primary">Adicionar Campanha</button>
+        <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button>
     </div>
         {% for x in campaigns %}
             <div class="card" style="width: 18rem;" onClick="getid()">
@@ -32,6 +32,10 @@
       campid = event.target.parentElement.querySelector('param').getAttribute('value');
       //window.location.href = window.location + "campaign/" + campid;
       alert(window.location + "campaign/" + campid)
+    }
+
+    function newcampaign(){
+        window.location.href = window.location.origin + "/campaigncreate/" + window.location.pathname.split('/').pop()
     }
 </script>
 
