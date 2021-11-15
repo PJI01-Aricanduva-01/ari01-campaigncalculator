@@ -1,30 +1,57 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3><a href="{{ url_for('index') }}" >Início</a></h3>
-    <h1>Novo CampaignSet</h1>
-    <div class="container">
-        <h2>Dê um nome para o CampaignSet</h2>
-        <form action="" method="POST">
-            {{ form.csrf_token }}
-            <div class="form-group">
-                <label>Nome</label>
-                {{ form.name(class="form-control", placeholder="Escreva um nome") }}
+<h3><a href="{{ url_for('index') }}" >Início</a></h3>
+<h1>Novo CampaignSet</h1>
+<div class="container">
+    <h2>Dê um nome para o CampaignSet</h2>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label>Nome</label>
+            {{ form.name(class="form-control", placeholder="Escreva um nome") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {% if form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                {{ forms.errors.name }}
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            {% if form.errors.name %}
-                <div class="alert alert-danger" role="alert">
-                    {{ forms.errors.name }}
-                </div>
-            {% endif %}
-        </form>
-    </div>
+        {% endif %}
+    </form>
+</div>
 {% endblock %}
 
 
+<!-- <h1>Teste de Formulário</h1>
 
+<form method="post">
+    {{ form.name.label }}
+    {{ form.name() }}
+    {{ form.submit() }}
+</form> -->
 
-<!-- <div class="container">
+<!-- Versão_02 
+<h3><a href="{{ url_for('index') }}" >Início</a></h3>
+<h1>Novo CampaignSet</h1>
+<div class="container">
+    <h2>Dê um nome para o CampaignSet</h2>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label>Nome</label>
+            {{ form.name(class="form-control", placeholder="Escreva um nome") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {% if form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                {{ forms.errors.name }}
+            </div>
+        {% endif %}
+    </form>
+</div> -->
+
+<!--Versão_01
+    <div class="container">
     <h2>Dê um nome para o CampaignSet</h2>
     <forms method="post">
         <div class="form-group">

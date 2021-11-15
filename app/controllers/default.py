@@ -1,10 +1,14 @@
 #importando as bibliotecas FLASK
 from flask import Flask, render_template, request
+from wtforms.validators import DataRequired 
 
+#importando as dependencias da própria aplicação
 from app import app, db
 
+#importando dependencias de tratamento de erros
 from werkzeug.exceptions import abort
 
+#importando os models
 from app.models.formcampaignset import CampaignSetForm
 from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign
@@ -13,45 +17,46 @@ from app.models.adset import Ad_Set
 
 
 
-
-@app.route('/index')
-@app.route('/')
+#criação da rota para index
+@app.route('/index') #rota para index
+@app.route('/') #mesma rota para /
 def index():
-    campaignsets = Campaign_Set.query.all()
-    return render_template('index.html', campsets=campaignsets)
+    campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
+    return render_template('index.html', campsets=campaignsets) #chamada do template index
 
 
-@app.route('/campaignset/<campaignset_id>')
+#criação da rota para detalhe de campaingset
+@app.route('/campaignset/<campaignset_id>') #rota para campaignset passando o id clicado como parametro
 def campaignset(campaignset_id):
-    campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first()
-    campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all()
-    return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns)
+    campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
+    campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
+    return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
 
 
-@app.route('/campaignsetcreate', methods=['GET', 'POST'])
+#rota para tela de criação de campaignset
+@app.route('/campaignsetcreate', methods=['GET', 'POST']) #rota para o campaignset com permissão de métodos GET e POST para o retorno do formulário
 def campaignsetcreate():
-    form = CampaignSetForm()
-    if request.method == 'POST':
-        return render_template('campaignsetcreate.html', form=form)
-        # if form.validate_on_submit():
-        #     name = form.name.data
-        #     campset = Campaign_Set(name)
-        #     db.session.add(campset)
-        #     db.session.commit()
-        
-        # return render_template('index.html')
-    
-    if request.method == 'GET':
-        return render_template('index.html', form=form)
+    form = CampaignSetForm() #criação do objeto formulário
+
+    if form.validate_on_submit(): #verificação dos dados pelo usuário. No evento de clique Submit, o wtforms recupera os dados e faz a verificação atravez desse métoro
+        name = form.name.data #recuperação do campo name do formulário e atribuição à variável
+        campset = Campaign_Set(name) #criação de uma instancia do model Campaign_Set com passagem do name como parametro
+        db.session.add(campset) #sqlalchemy criação de session com o objeto campset como parametro
+        db.session.commit() #sqlachemy commit da session. sqlalchemy escreve no banco os dados do model
+        campaignsets = Campaign_Set.query.all() #consulta dos campsets no banco para montagem do template index
+        return render_template('index.html', campsets=campaignsets) #chamada do template index
+
+    else:
+        return render_template('campaignsetcreate.html', form=form) #no caso de metodo GET (usuário acessou a página de criação), chamada do template campaignsetcreate
        
     
 
-
-@app.route('/campaign/<campaign_id>')
+#rota para a tela detalhes de campanha
+@app.route('/campaign/<campaign_id>') #rota para tela de campanha
 def campaign(campaign_id):
-    campaign = Campaign.query.filter_by(Campaign_id=campaign_id).first()
-    adsets = Ad_Set.query.filter_by(Campaign_Id=campaign_id).all()
-    return render_template('campaign.html', campaign=campaign, adsets=adsets)
+    campaign = Campaign.query.filter_by(Campaign_id=campaign_id).first() #consulta dos detalhes de campanha
+    adsets = Ad_Set.query.filter_by(Campaign_Id=campaign_id).all() #consulta dos conjuntos de anuncio
+    return render_template('campaign.html', campaign=campaign, adsets=adsets) #chamada do template campaign
 
 
 
