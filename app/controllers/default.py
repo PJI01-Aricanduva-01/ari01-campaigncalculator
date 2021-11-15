@@ -17,6 +17,12 @@ def index():
     campaignsets = Campaign_Set.query.order_by(Campaign_Set.campaign_set_id).all()
     return render_template('index.html', campsets=campaignsets)
 
+@app.route('/sobre')
+@app.route('/about')
+def about():
+    return render_template('about.html') 
+
+
 
 @app.route('/campaignset/<campaignset_id>')
 def campaignset(campaignset_id):
