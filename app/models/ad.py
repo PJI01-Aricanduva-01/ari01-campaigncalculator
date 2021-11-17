@@ -2,7 +2,7 @@
 from app import db
 
 #criando a classe que representa a tabela campaign_set
-class AdObject(db.Model):
+class Ad(db.Model):
     #atributo que se refere ao nome real da tabela no bando de dados
     __tablename__ = "ad"
 

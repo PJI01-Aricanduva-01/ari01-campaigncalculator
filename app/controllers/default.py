@@ -21,9 +21,6 @@ from app.models.formad import AdForm
 
 
 
-
-
-
 #criação da rota para index
 @app.route('/index') #rota para index
 @app.route('/') #mesma rota para /
@@ -103,8 +100,6 @@ def adset(adset_id):
     return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
     # import pdb; pdb.set_trace()
     # return f"<h1>{ adobj }</h1>"
-
-    
 
 
 @app.route('/adsetcreate/<campaign_id>', methods=['GET', 'POST'])
