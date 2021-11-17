@@ -10,11 +10,17 @@ from werkzeug.exceptions import abort
 
 #importando os models
 from app.models.formcampaignset import CampaignSetForm
-from app.models.formcampaign import CampaignForm
 from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign
+from app.models.formcampaign import CampaignForm
 from app.models.campaignobjective import Campaign_Objective
 from app.models.adset import Ad_Set
+from app.models.formadset import AdsetForm
+from app.models.ad import Ad
+from app.models.formad import AdForm
+
+
+
 
 
 
@@ -56,7 +62,18 @@ def campaignsetcreate():
 
     else:
         return render_template('campaignsetcreate.html', form=form) #no caso de metodo GET (usuário acessou a página de criação), chamada do template campaignsetcreate
-       
+               
+
+#rota para a tela detalhes de campanha
+@app.route('/campaign/<campaign_id>') #rota para tela de campanha
+def campaign(campaign_id):
+    campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
+    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+    campaign_objective = Campaign_Objective.query.filter_by(campaign_objective_id=campaign.campaign_objective_id).first()
+    adsets = Ad_Set.query.filter_by(campaign_id=campaign_id) #consulta dos conjuntos de anuncio
+    return render_template('campaign.html', campaign=campaign, campset=campaign_set, campobj=campaign_objective, adsets=adsets) #chamada do template campaign
+    # return f"<h1>{ adsets[5].ad_set_id }</h1>"
+
 
 @app.route('/campaigncreate/<campaignset_id>', methods=['GET', 'POST'])
 def campaigncreate(campaignset_id):
@@ -65,7 +82,7 @@ def campaigncreate(campaignset_id):
     if form.validate_on_submit():
         name = form.name.data
         objective = form.campaignobjective.data
-        camp = Campaign(name, campaignset_id,objective)
+        camp = Campaign(name, campaignset_id, objective)
         db.session.add(camp)
         db.session.commit()
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
@@ -76,34 +93,66 @@ def campaigncreate(campaignset_id):
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first()
         return render_template('campaigncreate.html', form=form, campset=campaignset)
 
-        
 
-#rota para a tela detalhes de campanha
-@app.route('/campaign/<campaign_id>') #rota para tela de campanha
-def campaign(campaign_id):
-    campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
-    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=Campaign.campaign_set_id).first()
-    campaign_objective = Campaign_Objective.query.filter_by(campaign_objective_id=campaign.campaign_objective_id).first()
-    adsets = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
-    return render_template('campaign.html', campaign=campaign, campset=campaign_set, adsets=adsets, campobj=campaign_objective) #chamada do template campaign
+@app.route('/adset/<adset_id>')
+def adset(adset_id):
+    adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+    campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
+    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+    ad = Ad.query.filter_by(ad_set_id=adset_id)
+    return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+    # import pdb; pdb.set_trace()
+    # return f"<h1>{ adobj }</h1>"
+
+    
 
 
 @app.route('/adsetcreate/<campaign_id>', methods=['GET', 'POST'])
 def adsetcreate(campaign_id):
-    form = CampaignForm()
+    form = AdsetForm()
 
     if form.validate_on_submit():
         name = form.name.data
-        adset = Ad_Set(name, campaign_id)
+        date_start = form.date_start.data
+        date_end = form.date_end.data
+        public = form.public.data
+        budget = form.budget.data
+        adset = Ad_Set(name, campaign_id, date_start, date_end, public, budget)
         db.session.add(adset)
         db.session.commit()
         campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
-        adsets = Ad_Set.query.filter_by(Campaign_Id=campaign_id).all() #consulta dos conjuntos de anuncio
-        return render_template('campaign.html', campaign=campaign, campset=campaign_set, adsets=adsets) #chamada do template campaign
+        campaign_objective = Campaign_Objective.query.filter_by(campaign_objective_id=campaign.campaign_objective_id).first()
+        adsets = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
+        return render_template('campaign.html', campaign=campaign, campset=campaign_set, adsets=adsets, campobj=campaign_objective) #chamada do template campaign
 
     else:
         campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
-        adsets = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
-        return render_template('adsetcreate.html', form=form, campaign=campaign, campset=campaign_set,)
+        adset = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
+        return render_template('adsetcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset)
+
+
+@app.route('/adcreate/<adset_id>', methods=['GET', 'POST'])
+def adcreate(adset_id):
+    form = AdForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        campaign_creative = form.campaign_creative.data
+        cta_link = form.cta_link.data
+        ad = Ad(name, adset_id, campaign_creative, cta_link)
+        db.session.add(ad)
+        db.session.commit()
+        adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+        campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first()
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first() #consulta dos detalhes de campanha
+        ad = Ad.query.filter_by(ad_set_id=adset_id)
+        return render_template('adset.html', adset=adset, campaign=campaign, campset=campaign_set, ad=ad)
+
+    else:
+        adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+        campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first()
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first() #consulta dos detalhes de campanha
+        ad = Ad.query.filter_by(ad_set_id=adset_id)
+        return render_template('adcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset, ad=ad)

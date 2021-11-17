@@ -1,26 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3><a href="/" >Início</a> > <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id) }}"> {{ campset.name }} </a> > {{ campaign.name }}</h3>
-    <ul>
+    <div class="inline"> 
+        <h3><a href="/" >Início</a> > 
+            <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id) }}"> {{ campset.name }} </a> > 
+            {{ campaign.name }}
+        </h3>
+    </div>
+   <ul>
         <li>Objetivo de campanha: {{ campobj.name }}</li>     
     </ul>
     <div class="flex">
         <h2>Conjuntos de Anúncios</h2>
         <button type="button" class="btn btn-primary" onclick="newadset()">Adicionar Conjunto de Anúncios</button>
     </div>
-    <ul>
     {% for adset in adsets %}
-        <li>{{ adsets.ad_set_id }}</li>
-        <li>{{ adsets.name }}</li>
-        <li>{{ adsets.date_start }}</li>
-        <li>{{ adsets.date_end }}</li>
-        <li>{{ adsets.public }}</li>
-        <li>{{ adsets.budget }}</li>
-    {% endfor %}
-    </ul>
+     <div class="card" style="width: 18rem;" onClick="getadset()">
+        <img class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ adset.ad_set_id }}</h5>
+            <p class="card-text">{{ adset.name }}</p>
+            <p class="card-text">{{ adset.date_start }}</p>
+            <p class="card-text">{{ adset.date_end }}</p>
+            <p class="card-text">{{ adset.public }}</p>
+            <p class="card-text">{{ adset.budget }}</p>
+            <param name="id" value={{ adset.ad_set_id }}>
+        </div>
+    </div>
+    {% endfor %} 
 
     <script>
+        function getadset(){
+        //campid = event.target.parentElement.querySelector('param').getAttribute('value');
+        //window.location.href = window.location + "campaign/" + campid;
+        window.location.href = window.location.origin + "/adset/" + event.target.parentElement.querySelector('param').getAttribute('value');
+        //alert(window.location + "campaign/" + campid)
+    }
+
         function newadset(){
             window.location.href = window.location.origin + "/adsetcreate/" + window.location.pathname.split('/').pop()
         }
