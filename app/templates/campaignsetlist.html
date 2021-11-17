@@ -1,3 +1,4 @@
+
 <div class="flex">
   <h2>Esses são os CampSet: </h2>  
   <a href="{{ url_for('campaignsetcreate') }}">
@@ -12,6 +13,18 @@
             <param name="id" value={{ x.campaign_set_id }}>
             <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
             <p class="card-text">criado em: {{ x.date_creation }}</p>
+
+  <h2>Esses são os CampSet: </h2>
+  {% for x in campsets %}
+      <div class="card-group flex">
+          <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <param name="id" value={{ x.campaign_set_id }}>
+              <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
+              <p class="card-text">criado em: {{ x.date_creation }}</p>
+            </div>
+
           </div>
         </div>
   {% endfor %} 
