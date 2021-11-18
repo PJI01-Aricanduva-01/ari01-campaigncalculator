@@ -7,6 +7,62 @@
     display: inline;
 }
 
+ul.content-list{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    list-style-type: none;
+}
+
+
+
+li.list-card{
+    background-color: lightblue;
+    margin: 1em;
+    padding: 1em;
+    height: 10em;
+    border: none;
+    border-radius: 0.8em;
+}
+
+
+
+.content-list a{
+    text-decoration: none;
+    color: grey;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.content-list a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+li.content-add{
+    background-color: rgb(170, 228, 173);
+    text-align: center;
+    display: block;
+}
+
+li.content-add i{
+    font-size: 3em;
+    margin: auto;
+}
+
+
+
+.content-in-top{
+    text-align: right;
+}
+
+
+li.list-card:hover{
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
 /* estilo para o botão Pesquisar na navbar */
 #divPesquisar{
     background-color:dimgray;
@@ -32,3 +88,6 @@
     width:260px;
   }
 
+.container{
+    margin-top: 3em;
+}
