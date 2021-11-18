@@ -2,6 +2,11 @@
     display: flex;
 }
 
+
+.inline{
+    display: inline;
+}
+
 /* estilo para o botão Pesquisar na navbar */
 #divPesquisar{
     background-color:dimgray;
@@ -21,3 +26,4 @@
     height:32px;
     width:260px;
   }
+

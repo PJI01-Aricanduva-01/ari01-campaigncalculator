@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="inline">
+        <h3><a href="{{ url_for('index') }}" >Início</a> > </h3>
+        <h3><a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id)}}">{{ campset.name }}</a> > </h3>
+        <h3>Nova Campanha</h3>
+    </div>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <h2>Nome da Campanha</h2>
+        <div class="form-group">
+            <label>Nome</label>
+            {{ form.name(class="form-control", placeholder="Escreva um nome") }}
+            <label>Objetivo de Campanha</label>
+            {{ form.campaignobjective(class="form-control", placeholder="Escreva um nome") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {% if form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                {{ forms.errors.name }}
+            </div>
+        {% endif %}
+    </form>
+    </form>
+{% endblock %}

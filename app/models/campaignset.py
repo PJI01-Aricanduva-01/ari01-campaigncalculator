@@ -1,6 +1,8 @@
 #importando a classe db do objeto app
 from app import db
 
+from datetime import datetime
+
 #criando a classe que representa a tabela campaign_set
 class Campaign_Set(db.Model):
     #atributo que se refere ao nome real da tabela no bando de dados
@@ -14,6 +16,7 @@ class Campaign_Set(db.Model):
     #método construtor
     def __init__(self, name):
         self.name = name
+        self.date_creation = datetime.now()
 
     def __repr__(self):
         return "<Campaign_Set %r>" % self.name
