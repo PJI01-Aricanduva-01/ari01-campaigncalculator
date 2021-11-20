@@ -5,7 +5,34 @@
     <div class="container">
         <h1>Calculador de Campanhas</h1>
         </br>
-        {% include "campaignsetlist.html" %}
+        <div>
+            <h2>Esses são os CampSet: </h2>  
+            <a href="{{ url_for('campaignsetcreate') }}">
+              <button type="button" class="btn btn-primary">Adicionar CampaignSet</button>
+            </a>
+          </div>
+            <div class="card-group">
+              <ul id="campaignset">
+                {% for x in campsets %}
+                  <li id="campaignset" class="card" onClick="getid()">
+                    <param name="id" value={{ x.campaign_set_id }}>
+                    <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
+                    <p class="card-text">criado em: {{ x.date_creation }}</p>
+                  </li>
+          
+                {% endfor %} 
+              </ul>
+          </div>
+          
+
     </div>
+
+    <script>
+        function getid(){
+          campsetid = event.target.parentElement.querySelector('param').getAttribute('value');
+          window.location.href = window.location + "campaignset/" + campsetid;
+          //alert(window.location + "campaignset/" + campsetid)
+        }
+    </script>
 
 {% endblock %}

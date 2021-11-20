@@ -19,9 +19,13 @@ class Ad_Set(db.Model):
     campaign = db.relationship('Campaign', foreign_keys=campaign_id)
 
     #método construtor
-    def __init__(self, name, campaign_set_id, campaign_objective_id):
+    def __init__(self, name, campaign_id, date_start, date_end, public, budget):
         self.name = name
-        self.campaign_id = campaign_set_id
+        self.campaign_id = campaign_id
+        self.date_start = date_start
+        self.date_end = date_end
+        self.public = public
+        self.budget = budget        
 
     #método de representação
     def __repr__(self):

@@ -7,24 +7,18 @@
     <div class="flex">
         <h2>Campanhas</h2>
         <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button>
-    </div>
-        {% for x in campaigns %}
-            <div class="card" style="width: 18rem;" onClick="getcampaign()">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ x.name }}</h5>
+    </div>            
+    <div class="card" style="width: 18rem;" >
+        <ul>
+            {% for x in campaigns %}
+                <li class="card" onClick="getcampaign()">
+                    <h5 class="card-title" class="card">{{ x.name }}</h5>
                     <p class="card-text">{{ x.campaign_objective_id }}</p>
-                    <param name="id" value={{ x.campaign_id }}>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Criado em: {{ x.date_creation }}</li>
-                </ul>
-                <!-- <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div> -->
-            </div>
-        {% endfor %}
+                    <p>Criado em: {{ x.date_creation }}</p>
+                    <param name="id" value={{ x.campaign_id }}>                 
+                </li>
+            {% endfor %}
+        </ul>
 </div>
 
 <script>
