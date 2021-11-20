@@ -32,6 +32,13 @@ def about():
 
 
 
+@app.route('/sobre')
+@app.route('/about')
+def about():
+    return render_template('about.html') 
+
+
+
 #criação da rota para detalhe de campaingset
 @app.route('/campaignset/<campaignset_id>') #rota para campaignset passando o id clicado como parametro
 def campaignset(campaignset_id):
@@ -80,25 +87,29 @@ def campaigncreate(campaignset_id):
 #rota para a tela detalhes de campanha
 @app.route('/campaign/<campaign_id>') #rota para tela de campanha
 def campaign(campaign_id):
-    campaign = Campaign.query.filter_by(Campaign_id=campaign_id).first() #consulta dos detalhes de campanha
-    adsets = Ad_Set.query.filter_by(Campaign_Id=campaign_id).all() #consulta dos conjuntos de anuncio
-    return render_template('campaign.html', campaign=campaign, adsets=adsets) #chamada do template campaign
+    campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
+    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=Campaign.campaign_set_id).first()
+    campaign_objective = Campaign_Objective.query.filter_by(campaign_objective_id=campaign.campaign_objective_id).first()
+    adsets = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
+    return render_template('campaign.html', campaign=campaign, campset=campaign_set, adsets=adsets, campobj=campaign_objective) #chamada do template campaign
 
 
+@app.route('/adsetcreate/<campaign_id>', methods=['GET', 'POST'])
+def adsetcreate(campaign_id):
+    form = CampaignForm()
 
+    if form.validate_on_submit():
+        name = form.name.data
+        adset = Ad_Set(name, campaign_id)
+        db.session.add(adset)
+        db.session.commit()
+        campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+        adsets = Ad_Set.query.filter_by(Campaign_Id=campaign_id).all() #consulta dos conjuntos de anuncio
+        return render_template('campaign.html', campaign=campaign, campset=campaign_set, adsets=adsets) #chamada do template campaign
 
-
-
-
-
-    # if request.method == 'POST':
-    #     name = request.form['name']
-        
-    #     if not name:
-    #         flash('Por favor, escolha um nome para o CampaignSet')
-    #     else:
-    #         campaignset = Campaign_Set(name=name)
-    #         db.session.add(campaignset)
-    #         db.session.commit()
-    #         # campaignsetnew = Campaign_Set.query.order_by(campaignset.id).last()
-    #         return redirect(url_for('index'))
+    else:
+        campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+        adsets = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
+        return render_template('adsetcreate.html', form=form, campaign=campaign, campset=campaign_set,)

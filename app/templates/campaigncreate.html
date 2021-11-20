@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="inline">
-        <h3><a href="{{ url_for('index') }}" >Início</a> > </h3>
-        <h3><a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id)}}">{{ campset.name }}</a> > </h3>
-        <h3>Nova Campanha</h3>
+        <h3><a href="{{ url_for('index') }}" >Início</a> >
+        <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id)}}">{{ campset.name }}</a> > 
+        Nova Campanha</h3>
     </div>
     <form action="" method="POST">
         {{ form.csrf_token }}

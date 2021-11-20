@@ -1,11 +1,29 @@
 
+<div>
+
+
 <div class="flex">
+
   <h2>Esses são os CampSet: </h2>  
   <a href="{{ url_for('campaignsetcreate') }}">
     <button type="button" class="btn btn-primary">Adicionar CampaignSet</button>
   </a>
 </div>
   <div class="card-group flex">
+
+    <ul id="campaignset" class="flex">
+      {% for x in campsets %}
+
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <li class="card-body" id="campaignset" class="card" onClick="getid()">
+          <param name="id" value={{ x.campaign_set_id }}>
+          <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
+          <p class="card-text">criado em: {{ x.date_creation }}</p>
+        </li>
+
+      {% endfor %} 
+    </ul>
+
     {% for x in campsets %}
         <div id="campaignset" class="card" onClick="getid()" >         
           <!-- <img src="..." class="card-img-top" alt="..."> -->

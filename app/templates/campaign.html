@@ -1,9 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1><a href="/" >Início</a> > <a href="/"> Campaign Set </a> > {{ campaign }}</h1>
+    <h3><a href="/" >Início</a> > <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id) }}"> {{ campset.name }} </a> > {{ campaign.name }}</h3>
     <ul>
-        <li>Objetivo de campanha: {{ campaignobjective.name }}</li>
-        
+        <li>Objetivo de campanha: {{ campobj.name }}</li>     
     </ul>
+    <div class="flex">
+        <h2>Conjuntos de Anúncios</h2>
+        <button type="button" class="btn btn-primary" onclick="newadset()">Adicionar Conjunto de Anúncios</button>
+    </div>
+    <ul>
+    {% for adset in adsets %}
+        <li>{{ adsets.ad_set_id }}</li>
+        <li>{{ adsets.name }}</li>
+        <li>{{ adsets.date_start }}</li>
+        <li>{{ adsets.date_end }}</li>
+        <li>{{ adsets.public }}</li>
+        <li>{{ adsets.budget }}</li>
+    {% endfor %}
+    </ul>
+
+    <script>
+        function newadset(){
+            window.location.href = window.location.origin + "/adsetcreate/" + window.location.pathname.split('/').pop()
+        }
+    </script>
+
 {% endblock %}
