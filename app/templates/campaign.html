@@ -14,8 +14,9 @@
         <h2>Conjuntos de Anúncios</h2>
         <button type="button" class="btn btn-primary" onclick="newadset()">Adicionar Conjunto de Anúncios</button>
     </div>
+    <div class="card-group">
     {% for adset in adsets %}
-     <div class="card" style="width: 18rem;" onClick="getadset()">
+    <div class="card" style="width: 18rem;" onClick="getadset()">
         <img class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ adset.ad_set_id }}</h5>
@@ -26,6 +27,7 @@
             <p class="card-text">{{ adset.budget }}</p>
             <param name="id" value={{ adset.ad_set_id }}>
         </div>
+    </div>
     </div>
     {% endfor %} 
 
