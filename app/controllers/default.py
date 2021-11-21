@@ -41,6 +41,7 @@ def about():
 def campaignset(campaignset_id):
     campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
     campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
+    # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
     return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
 
 

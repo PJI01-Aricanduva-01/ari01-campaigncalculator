@@ -15,10 +15,15 @@
                 <li class="content-add card list-card" onclick="newcampaign()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
                 {% for x in campaigns %}
                     <li class="card list-card" onClick="getcampaign()">
-                        <h5 class="card-title" class="card">{{ x.name }}</h5>
-                        <p class="card-text">{{ x.campaign_objective_id }}</p>
-                        <p>Criado em: {{ x.date_creation }}</p>
-                        <param name="id" value={{ x.campaign_id }}>                 
+                        <div class="content-in-top">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="content-in-bottom">
+                            <h5 class="card-title" class="card">{{ x.name }}</h5>
+                            <p class="card-text">{{ x.campaign_objective_id }}</p>
+                            <p>Criado em: {{ x.date_creation }}</p>
+                            <param name="id" value={{ x.campaign_id }}>                 
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

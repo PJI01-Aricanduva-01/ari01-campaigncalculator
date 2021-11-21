@@ -2,28 +2,28 @@
 
 {% block content %}
 
-    <div class="container">
+      <div class="container">
         <div>
           <h2>Esses são os Conjuntos de Campanhas: </h2>  
         </div>
-          <div class="card-group">
-            <ul id="campaignset" class="content-list">
-              <a href="{{ url_for('campaignsetcreate') }}"><li class="content-add card list-card"><h5>Novo</h5><i class="fas fa-plus"></i></li></a>
-              {% for x in campsets %}
+        <div class="card-group">
+          <ul id="campaignset" class="content-list">
+            <a href="{{ url_for('campaignsetcreate') }}"><li class="content-add card list-card"><h5>Novo</h5><i class="fas fa-plus"></i></li></a>
+            {% for x in campsets %}
                 <li id="campaignset" class="card list-card" onClick="getid()">
                   <div class="content-in-top">
                     <i class="fas fa-trash-alt"></i>
                   </div>
-                    <div class="content-in-bottom">
-                    <param name="id" value={{ x.campaign_set_id }}>
-                    <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
-                    <p class="card-text">criado em: {{ x.date_creation }}</p>
-                  </div>
-                </li> 
-              {% endfor %} 
-            </ul>
-          </div>          
-        </div>
+                  <div class="content-in-bottom">
+                  <param name="id" value={{ x.campaign_set_id }}>
+                  <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
+                  <p class="card-text">criado em: {{ x.date_creation }}</p>
+                </div>
+              </li> 
+            {% endfor %} 
+          </ul>
+        </div>          
+      </div>
 
     <script>
         function getid(){
