@@ -10,24 +10,25 @@
     </div>
     <div class="flex">
         <h2>Anúncios</h2>
-        <button type="button" class="btn btn-primary" onclick="newad()">Adicionar Anúncio</button>
+        <!-- <button type="button" class="btn btn-primary" onclick="newad()">Adicionar Anúncio</button> -->
     </div>
-    <div class="card-group" style="width: 18rem;" >
+    <div>
         <ul class="content-list">
-            {% for ad in ad %}
-                <li class="list-card card" onClick="getcampaign('{{ ad.ad_set_id }}')">
-                    <div class="content-in-top">
-                        <i class="fas fa-trash-alt"></i>
-                    </div>
-                    <div class="content-in-bottom">
-                        <h5 class="card-title" class="card">{{ ad.name }}</h5>
-                        <p class="card-text">Criativo:</p>
-                        <p class="card-text">{{ ad.campaign_creative }}</p>
-                        <p class="card-text">Link de Saída:</p>
-                        <p class="card-text">{{ ad.cta_link }}</p>
-                    </div>
-                    <param name="id" value={{ ad.ad_set_id }}>                
-                </li>
+            <li class="content-add card list-card" onclick="newad()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+                {% for ad in ad %}
+                    <li class="card list-card" onClick="getcampaign('{{ ad.ad_set_id }}')">
+                        <div class="content-in-top">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="content-in-bottom">
+                            <h5 class="card-title">{{ ad.name }}</h5>
+                            <p class="card-text">Criativo:</p>
+                            <p class="card-text">{{ ad.campaign_creative }}</p>
+                            <p class="card-text">Link de Saída:</p>
+                            <p class="card-text">{{ ad.cta_link }}</p>
+                        </div>
+                        <param name="id" value={{ ad.ad_set_id }}>                
+                    </li>
             {% endfor %}
         </ul>
     </div>

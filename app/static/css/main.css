@@ -9,11 +9,15 @@
 
 ul.content-list{
     display: grid;
-    grid-auto-flow: column;
+    /* grid-auto-flow: column;
     grid-auto-flow: row;
-    /* grid-template-rows: auto; */
     grid-template-columns: repeat(4, 1fr);
-    list-style-type: none;
+    list-style-type: none; */
+
+    grid-template-columns: repeat(4, 1fr);
+    @media (min-width: 52em) {
+        grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    }
 }
 
 
@@ -29,27 +33,31 @@ li.list-card{
 
 
 
-.content-list a{
+.content-add {
     text-decoration: none;
     color: grey;
     text-align: center;
     vertical-align: middle;
 }
 
-.content-list a:hover{
+li.content-add:hover{
     text-decoration: none;
     color: black;
 }
 
 li.content-add{
     background-color: rgb(170, 228, 173);
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li.content-add h5{
     display: block;
 }
 
 li.content-add i{
-    font-size: 3em;
-    margin: auto;
+    font-size: 3em; 
 }
 
 
@@ -91,4 +99,9 @@ li.list-card:hover{
 
 .container{
     margin-top: 3em;
+}
+
+.fa-trash-alt:hover{
+    font-size: 1.3em;
+    color: rgb(133, 39, 39);
 }
