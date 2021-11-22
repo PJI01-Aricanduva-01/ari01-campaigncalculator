@@ -7,27 +7,38 @@
             {{ campaign.name }}
         </h3>
     </div>
-   <ul>
-        <li>Objetivo de campanha: {{ campobj.name }}</li>     
+    <ul>
+        <li>Campanha: {{ campaign.name }}</li>
+        <li>Objetivo: {{ campobj.name }}</li>
+        <li>Data de Criação: {{ campaign.date_creation }}</li>   
     </ul>
     <div class="flex">
         <h2>Conjuntos de Anúncios</h2>
-        <button type="button" class="btn btn-primary" onclick="newadset()">Adicionar Conjunto de Anúncios</button>
     </div>
-    {% for adset in adsets %}
-     <div class="card" style="width: 18rem;" onClick="getadset()">
-        <img class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{ adset.ad_set_id }}</h5>
-            <p class="card-text">{{ adset.name }}</p>
-            <p class="card-text">{{ adset.date_start }}</p>
-            <p class="card-text">{{ adset.date_end }}</p>
-            <p class="card-text">{{ adset.public }}</p>
-            <p class="card-text">{{ adset.budget }}</p>
-            <param name="id" value={{ adset.ad_set_id }}>
-        </div>
+    <div>
+        <ul class="content-list">
+            <li class="content-add card list-card" onclick="newadset()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+            {% for adset in adsets %}
+    <!-- <div class="card" style="width: 18rem;" onClick="getadset()"> -->
+
+                <li class="card list-card" onClick="getadset()">
+                    <div class="content-in-top">
+                        <i class="fas fa-trash-alt"></i>
+                    </div> 
+                    <div>
+                        <h5 class="card-title">{{ adset.ad_set_id }}</h5>
+                        <p class="card-text">{{ adset.name }}</p>
+                        <p class="card-text">{{ adset.date_start }}</p>
+                        <p class="card-text">{{ adset.date_end }}</p>
+                        <p class="card-text">{{ adset.public }}</p>
+                        <p class="card-text">{{ adset.budget }}</p>
+                        <param name="id" value={{ adset.ad_set_id }}>
+                    </div>
+                </li>
+            {% endfor %} 
+        </ul>
     </div>
-    {% endfor %} 
+
 
     <script>
         function getadset(){

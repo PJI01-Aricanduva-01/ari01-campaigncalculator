@@ -13,7 +13,7 @@
             <label>Nome</label>
             {{ form.name(class="form-control", placeholder="Escreva um nome") }}
             <label>Objetivo de Campanha</label>
-            {{ form.campaignobjective(class="form-control", placeholder="Escreva um nome") }}
+            {{ form.campaignobjective }}
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
         {% if form.errors.name %}

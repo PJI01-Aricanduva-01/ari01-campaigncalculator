@@ -1,37 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3><a href="/">Início</a> > {{ campaignset.name }} </h3>
-</br>
-<div class="container">
-    <div class="flex">
-        <h2>Campanhas</h2>
-        <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button>
-    </div>            
-    <div class="card" style="width: 18rem;" >
-        <ul>
-            {% for x in campaigns %}
-                <li class="card" onClick="getcampaign()">
-                    <h5 class="card-title" class="card">{{ x.name }}</h5>
-                    <p class="card-text">{{ x.campaign_objective_id }}</p>
-                    <p>Criado em: {{ x.date_creation }}</p>
-                    <param name="id" value={{ x.campaign_id }}>                 
-                </li>
-            {% endfor %}
-        </ul>
-</div>
+    <div class="site-nav">
+        <h3><a href="/">Início</a> > {{ campaignset.name }} </h3>
+    </div>
+    </br>
+    <div class="container">
+        <div class="flex">
+            <h2>Campanhas</h2>
+            <!-- <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button> -->
+        </div>            
+        <div>
+            <ul class="content-list">
+                <li class="content-add card list-card" onclick="newcampaign()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+                {% for x in campaigns %}
+                    <li class="card list-card" onClick="getcampaign()">
+                        <div class="content-in-top">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="content-in-bottom">
+                            <h5 class="card-title" class="card">{{ x.name }}</h5>
+                            <p class="card-text">{{ x.campaign_objective_id }}</p>
+                            <p>Criado em: {{ x.date_creation }}</p>
+                            <param name="id" value={{ x.campaign_id }}>                 
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-<script>
-    function getcampaign(){
-      //campid = event.target.parentElement.querySelector('param').getAttribute('value');
-      //window.location.href = window.location + "campaign/" + campid;
-      window.location.href = window.location.origin + "/campaign/" + event.target.parentElement.querySelector('param').getAttribute('value');
-      //alert(window.location + "campaign/" + campid)
-    }
+    <script>
+        function getcampaign(){
+          //campid = event.target.parentElement.querySelector('param').getAttribute('value');
+          //window.location.href = window.location + "campaign/" + campid;
+          window.location.href = window.location.origin + "/campaign/" + event.target.parentElement.querySelector('param').getAttribute('value');
+          //alert(window.location + "campaign/" + campid)
+        }
 
-    function newcampaign(){
-        window.location.href = window.location.origin + "/campaigncreate/" + window.location.pathname.split('/').pop()
-    }
-</script>
+        function newcampaign(){
+            window.location.href = window.location.origin + "/campaigncreate/" + window.location.pathname.split('/').pop()
+        }
+    </script>
 
 {% endblock %}

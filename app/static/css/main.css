@@ -7,6 +7,71 @@
     display: inline;
 }
 
+ul.content-list{
+    display: grid;
+    /* grid-auto-flow: column;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    list-style-type: none; */
+
+    grid-template-columns: repeat(4, 1fr);
+    @media (min-width: 52em) {
+        grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    }
+}
+
+
+
+li.list-card{
+    background-color: lightblue;
+    margin: 1em;
+    padding: 1em;
+    height: fit-content(20%);
+    border: none;
+    border-radius: 0.8em;
+}
+
+
+
+.content-add {
+    text-decoration: none;
+    color: grey;
+    text-align: center;
+    vertical-align: middle;
+}
+
+li.content-add:hover{
+    text-decoration: none;
+    color: black;
+}
+
+li.content-add{
+    background-color: rgb(170, 228, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li.content-add h5{
+    display: block;
+}
+
+li.content-add i{
+    font-size: 3em; 
+}
+
+
+
+.content-in-top{
+    text-align: right;
+}
+
+
+li.list-card:hover{
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
 /* estilo para o botão Pesquisar na navbar */
 #divPesquisar{
     background-color:dimgray;
@@ -33,3 +98,11 @@
     width:260px;
   }
 
+.container{
+    margin-top: 3em;
+}
+
+.fa-trash-alt:hover{
+    font-size: 1.3em;
+    color: rgb(133, 39, 39);
+}
