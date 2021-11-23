@@ -16,14 +16,14 @@
                 {% for x in campaigns %}
                     <li class="card list-card" onClick="getcampaign()">
                         <div class="content-in-top">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt" onClick="removecampaign()"></i>
                         </div>
                         <div class="content-in-bottom">
                             <h5 class="card-title" class="card">{{ x.name }}</h5>
                             <p class="card-text">{{ x.campaign_objective_id }}</p>
                             <p>Criado em: {{ x.date_creation }}</p>
-                            <param name="id" value={{ x.campaign_id }}>                 
                         </div>
+                        <param name="id" value={{ x.campaign_id }}>
                     </li>
                 {% endfor %}
             </ul>
@@ -34,12 +34,18 @@
         function getcampaign(){
           //campid = event.target.parentElement.querySelector('param').getAttribute('value');
           //window.location.href = window.location + "campaign/" + campid;
-          window.location.href = window.location.origin + "/campaign/" + event.target.parentElement.querySelector('param').getAttribute('value');
+          window.location.href = window.location.origin + "/campaign/" + event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
           //alert(window.location + "campaign/" + campid)
         }
 
         function newcampaign(){
             window.location.href = window.location.origin + "/campaigncreate/" + window.location.pathname.split('/').pop()
+        }
+
+        function removecampaign(){
+            campid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+            window.location.href = window.location.origin + "/campaignremove/" + campid;
+            event.stopPropagation();
         }
     </script>
 

@@ -16,9 +16,9 @@
         <ul class="content-list">
             <li class="content-add card list-card" onclick="newad()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
                 {% for ad in ad %}
-                    <li class="card list-card" onClick="getcampaign('{{ ad.ad_set_id }}')">
+                    <li class="card list-card">
                         <div class="content-in-top">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt" onClick="eraseAd()"></i>
                         </div>
                         <div class="content-in-bottom">
                             <h5 class="card-title">{{ ad.name }}</h5>
@@ -27,7 +27,7 @@
                             <p class="card-text">Link de Saída:</p>
                             <p class="card-text">{{ ad.cta_link }}</p>
                         </div>
-                        <param name="id" value={{ ad.ad_set_id }}>                
+                        <param name="id" value={{ ad.ad_id }}>                
                     </li>
             {% endfor %}
         </ul>
@@ -36,5 +36,12 @@
         function newad(){
             window.location.href = window.location.origin + "/adcreate/" + window.location.pathname.split('/').pop()
         }
+
+        function eraseAd(){
+            adid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+            window.location.href = window.location.origin + "/adremove/" + adid;
+            event.stopPropagation();
+        }
+
     </script>
 {% endblock %}

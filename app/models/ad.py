@@ -15,7 +15,7 @@ class Ad(db.Model):
 
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    ad_set = db.relationship('Ad_Set', foreign_keys=ad_set_id)
+    ad_set = db.relationship('Ad_Set', back_populates='ad')
 
     #método construtor
     def __init__(self, name, ad_set_id, campaign_creative, cta_link):

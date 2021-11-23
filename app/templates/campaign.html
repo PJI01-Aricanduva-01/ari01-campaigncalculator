@@ -23,7 +23,7 @@
 
                 <li class="card list-card" onClick="getadset()">
                     <div class="content-in-top">
-                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-trash-alt" onClick="adsetremove()"></i>
                     </div> 
                     <div>
                         <h5 class="card-title">{{ adset.ad_set_id }}</h5>
@@ -31,9 +31,9 @@
                         <p class="card-text">{{ adset.date_start }}</p>
                         <p class="card-text">{{ adset.date_end }}</p>
                         <p class="card-text">{{ adset.public }}</p>
-                        <p class="card-text">{{ adset.budget }}</p>
-                        <param name="id" value={{ adset.ad_set_id }}>
+                        <p class="card-text">{{ adset.budget }}</p>                       
                     </div>
+                    <param name="id" value={{ adset.ad_set_id }}>
                 </li>
             {% endfor %} 
         </ul>
@@ -44,12 +44,18 @@
         function getadset(){
         //campid = event.target.parentElement.querySelector('param').getAttribute('value');
         //window.location.href = window.location + "campaign/" + campid;
-        window.location.href = window.location.origin + "/adset/" + event.target.parentElement.querySelector('param').getAttribute('value');
+        window.location.href = window.location.origin + "/adset/" + event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
         //alert(window.location + "campaign/" + campid)
     }
 
         function newadset(){
             window.location.href = window.location.origin + "/adsetcreate/" + window.location.pathname.split('/').pop()
+        }
+
+        function adsetremove(){
+            adsetId = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+            window.location.href = window.location.origin + "/adsetremove/" + adsetId;
+            event.stopPropagation();
         }
     </script>
 

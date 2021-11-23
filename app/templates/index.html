@@ -12,13 +12,13 @@
             {% for x in campsets %}
               <li id="campaignset" class="card list-card" onClick="getid()">
                 <div class="content-in-top">
-                  <i class="fas fa-trash-alt"></i>
+                  <i class="fas fa-trash-alt" onCLick="eraseCampSet()"></i>
                 </div>
                 <div class="content-in-bottom">
-                  <param name="id" value={{ x.campaign_set_id }}>
                   <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
                   <p class="card-text">criado em: {{ x.date_creation }}</p>
                 </div>
+                <param name="id" value={{ x.campaign_set_id }}>
               </li> 
             {% endfor %} 
           </ul>
@@ -27,13 +27,20 @@
 
     <script>
         function getid(){
-          campsetid = event.target.parentElement.querySelector('param').getAttribute('value');
+          campsetid = event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
           window.location.href = window.location + "campaignset/" + campsetid;
           //alert(window.location + "campaignset/" + campsetid)
         }
 
         function newcampset(){
           window.location.href = window.location.origin + "/campaignsetcreate"
+        }
+
+        function eraseCampSet(){
+          campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+          // window.location.href = window.location.origin + "campaignset/" + campsetid;
+          alert(campsetid);
+          event.stopPropagation();
         }
     </script>
 

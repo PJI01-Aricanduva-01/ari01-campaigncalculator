@@ -87,6 +87,26 @@ def campaigncreate(campaignset_id):
         return render_template('campaigncreate.html', form=form, campset=campaignset, campobj=campaignobj)
 
 
+@app.route('/campaignremove/<campaignId>', methods=['GET', 'POST'])
+def campaignremove(campaignId):
+    campaign = Campaign.query.filter_by(campaign_id=campaignId).first()
+    campSetId = campaign.campaign_set_id
+    if bool(Ad_Set.query.filter_by(campaign_id=campaignId).first()):
+        adsets = Ad_Set.query.filter_by(campaign_id=campaignId)
+        if bool(Ad.query.filter_by(ad_set_id=adsets.ad_set_id).first()):
+            deleteAd = Ad.__table__.delete().where(Ad.ad_set_id == adsets.ad_set_id)
+            db.session.execute(deleteAd)
+
+        deleteAdSet = Ad_Set.__table__.delete().where(Ad_Set.campaign_id == campaignId)
+        db.session.execute(deleteAdSet)
+        db.commit()
+
+    db.session.delete(campaignId)
+    db.session.commit()
+    return redirect(url_for('campaignset', campaignset_id=campSetId))
+
+
+
 @app.route('/adset/<adset_id>')
 def adset(adset_id):
     adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
@@ -116,6 +136,20 @@ def adsetcreate(campaign_id):
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
         adset = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
         return render_template('adsetcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset)
+
+
+@app.route('/adsetremove/<adset_id>', methods=['GET', 'POST'])
+def adsetremove(adset_id):
+    adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+    campaign_id = adset.campaign_id
+    if bool(Ad.query.filter_by(ad_set_id=adset_id).first()):
+        deleteAd = Ad.__table__.delete().where(Ad.ad_set_id == adset_id)
+        db.session.execute(deleteAd)
+        db.session.commit()
+
+    db.session.delete(adset)
+    db.session.commit()
+    return redirect(url_for('campaign', campaign_id=campaign_id))
 
 
 @app.route('/ad/<ad_id>', methods=['GET', 'POST'])
@@ -148,3 +182,12 @@ def adcreate(adset_id):
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first() #consulta dos detalhes de campanha
         ad = Ad.query.filter_by(ad_set_id=adset_id)
         return render_template('adcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset, ad=ad)
+
+
+@app.route('/adremove/<ad_id>', methods=['GET', 'POST'])
+def adremove(ad_id):
+    ad = Ad.query.filter_by(ad_id=ad_id).first()
+    adset_id = ad.ad_set_id
+    db.session.delete(ad)
+    db.session.commit()
+    return redirect(url_for('adset', adset_id=adset_id))
