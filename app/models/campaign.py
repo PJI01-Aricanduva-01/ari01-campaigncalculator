@@ -16,7 +16,7 @@ class Campaign(db.Model):
     campaign_objective_id = db.Column(db.Integer, db.ForeignKey('campaign_objective.campaign_objective_id'))
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    campaign_set = db.relationship('Campaign_Set', back_populates='campaign')
+    campaign_set = db.relationship('Campaign_Set', back_populates='campaign', foreign_keys='Campaign.campaign_set_id')
 
     ad_set = db.relationship('Ad_Set', back_populates='campaign', primaryjoin='Campaign.campaign_id==Ad_Set.campaign_id', cascade='all, delete-orphan')
 

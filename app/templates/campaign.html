@@ -27,9 +27,9 @@
                         <p class="card-title">ID: {{ adset.ad_set_id }}</p>
                         <h5 class="card-title">{{ adset.name }}</h5>
                         <p class="card-text close-to">Início:</p>
-                        <p class="card-text">{{ adset.date_start }}</p>
+                        <p class="card-text">{{ adset.date_start.strftime('%d-%m-%Y') }}</p>
                         <p class="card-text close-to">Fim:</p>
-                        <p class="card-text">{{ adset.date_end }}</p>
+                        <p class="card-text">{{ adset.date_end.strftime('%d-%m-%Y') }}</p>
                         <p class="card-text">{{ adset.public }}</p>
                         <p class="card-text">{{ adset.budget }}</p>
                         <p class="card-text close-to">Anúncios:</p>

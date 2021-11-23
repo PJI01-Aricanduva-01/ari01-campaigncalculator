@@ -21,9 +21,9 @@
                         <div class="content-in-bottom">
                             <p class="card-text">ID: {{ camp.campaign_id }}</p>
                             <h5 class="card-title" class="card">{{ camp.name }}</h5>
-                            <p class="card-text">{{ camp.campaign_objective.name }}</p>
-                            <p>Criado em: {{ camp.date_creation }}</p>
-                            <p>Conjuntos de Anúncios:</p>
+                            <p class="card-text close-to">{{ camp.campaign_objective.name }}</p>
+                            <p class="card-text">Criado em: {{ camp.date_creation.strftime('%d-%m-%Y') }}</p>
+                            <p class="card-text close-to">Conjuntos de Anúncios:</p>
                             {% for adset in camp.ad_set %}
                                 <p class="card-text">{{ adset.ad_set_id }} - {{ adset.name }}</p>
                             {% endfor %}
