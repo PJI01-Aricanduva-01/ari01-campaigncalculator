@@ -20,7 +20,9 @@ ul.content-list{
     }
 }
 
-
+.close-to{
+    margin-bottom: 0px;
+}
 
 li.list-card{
     background-color: lightblue;

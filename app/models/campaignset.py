@@ -13,6 +13,8 @@ class Campaign_Set(db.Model):
     name = db.Column(db.String)
     date_creation = db.Column(db.DateTime)
 
+    campaign = db.relationship('Campaign', back_populates='campaign_set', cascade='all, delete-orphan')
+
     #método construtor
     def __init__(self, name):
         self.name = name

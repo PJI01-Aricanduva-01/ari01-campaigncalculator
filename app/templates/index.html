@@ -12,7 +12,7 @@
             {% for x in campsets %}
               <li id="campaignset" class="card list-card" onClick="getid()">
                 <div class="content-in-top">
-                  <i class="fas fa-trash-alt" onCLick="eraseCampSet()"></i>
+                  <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
                 </div>
                 <div class="content-in-bottom">
                   <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
@@ -36,10 +36,9 @@
           window.location.href = window.location.origin + "/campaignsetcreate"
         }
 
-        function eraseCampSet(){
+        function removeCampSet(){
           campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
-          // window.location.href = window.location.origin + "campaignset/" + campsetid;
-          alert(campsetid);
+          window.location.href = window.location.origin + "/campaignsetremove/" + campsetid;
           event.stopPropagation();
         }
     </script>

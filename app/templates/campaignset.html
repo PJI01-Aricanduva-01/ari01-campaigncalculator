@@ -13,17 +13,22 @@
         <div>
             <ul class="content-list">
                 <li class="content-add card list-card" onclick="newcampaign()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
-                {% for x in campaigns %}
+                {% for camp in campaigns %}
                     <li class="card list-card" onClick="getcampaign()">
                         <div class="content-in-top">
                             <i class="fas fa-trash-alt" onClick="removecampaign()"></i>
                         </div>
                         <div class="content-in-bottom">
-                            <h5 class="card-title" class="card">{{ x.name }}</h5>
-                            <p class="card-text">{{ x.campaign_objective_id }}</p>
-                            <p>Criado em: {{ x.date_creation }}</p>
+                            <p class="card-text">ID: {{ camp.campaign_id }}</p>
+                            <h5 class="card-title" class="card">{{ camp.name }}</h5>
+                            <p class="card-text">{{ camp.campaign_objective.name }}</p>
+                            <p>Criado em: {{ camp.date_creation }}</p>
+                            <p>Conjuntos de Anúncios:</p>
+                            {% for adset in camp.ad_set %}
+                                <p class="card-text">{{ adset.ad_set_id }} - {{ adset.name }}</p>
+                            {% endfor %}
                         </div>
-                        <param name="id" value={{ x.campaign_id }}>
+                        <param name="id" value={{ camp.campaign_id }}>
                     </li>
                 {% endfor %}
             </ul>

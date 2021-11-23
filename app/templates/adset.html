@@ -21,6 +21,7 @@
                             <i class="fas fa-trash-alt" onClick="eraseAd()"></i>
                         </div>
                         <div class="content-in-bottom">
+                            <p class="card-text">ID: {{ ad.ad_id }}</p>
                             <h5 class="card-title">{{ ad.name }}</h5>
                             <p class="card-text">Criativo:</p>
                             <p class="card-text">{{ ad.campaign_creative }}</p>
@@ -42,6 +43,5 @@
             window.location.href = window.location.origin + "/adremove/" + adid;
             event.stopPropagation();
         }
-
     </script>
 {% endblock %}

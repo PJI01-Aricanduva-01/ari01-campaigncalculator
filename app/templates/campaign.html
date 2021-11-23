@@ -9,8 +9,8 @@
     </div>
     <ul>
         <li>Campanha: {{ campaign.name }}</li>
-        <li>Objetivo: {{ campobj.name }}</li>
-        <li>Data de Criação: {{ campaign.date_creation }}</li>   
+        <li>Objetivo: {{ campaign.campaign_objective.name }}</li>
+        <li>Data de Criação: {{ campaign.date_creation }}</li>
     </ul>
     <div class="flex">
         <h2>Conjuntos de Anúncios</h2>
@@ -18,20 +18,24 @@
     <div>
         <ul class="content-list">
             <li class="content-add card list-card" onclick="newadset()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
-            {% for adset in adsets %}
-    <!-- <div class="card" style="width: 18rem;" onClick="getadset()"> -->
-
+            {% for adset in adset %}
                 <li class="card list-card" onClick="getadset()">
                     <div class="content-in-top">
                         <i class="fas fa-trash-alt" onClick="adsetremove()"></i>
                     </div> 
                     <div>
-                        <h5 class="card-title">{{ adset.ad_set_id }}</h5>
-                        <p class="card-text">{{ adset.name }}</p>
+                        <p class="card-title">ID: {{ adset.ad_set_id }}</p>
+                        <h5 class="card-title">{{ adset.name }}</h5>
+                        <p class="card-text close-to">Início:</p>
                         <p class="card-text">{{ adset.date_start }}</p>
+                        <p class="card-text close-to">Fim:</p>
                         <p class="card-text">{{ adset.date_end }}</p>
                         <p class="card-text">{{ adset.public }}</p>
-                        <p class="card-text">{{ adset.budget }}</p>                       
+                        <p class="card-text">{{ adset.budget }}</p>
+                        <p class="card-text close-to">Anúncios:</p>
+                        {% for ad in adset.ad %}
+                            <p class="card-text close-to">{{ ad.ad_id}} - {{ ad.name }}</p>
+                        {% endfor %}
                     </div>
                     <param name="id" value={{ adset.ad_set_id }}>
                 </li>
@@ -58,5 +62,13 @@
             event.stopPropagation();
         }
     </script>
+
+                            <!-- {% if adset.ad %}  
+                            {% for ad in adset.ad.ad_id %}
+                                <p class="card-text">{{ adset.ad.id }} - {{ adset.ad.name }}</p> 
+                            {% endfor %}
+                         {% else %}
+                        <p class="card-text">Sem Anúncios.</p> 
+                        {% endif %}  -->  
 
 {% endblock %}

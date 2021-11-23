@@ -16,9 +16,9 @@ class Ad_Set(db.Model):
     budget = db.Column(db.Integer)
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    campaign = db.relationship('Campaign', foreign_keys=campaign_id)
+    campaign = db.relationship('Campaign', back_populates='ad_set', foreign_keys='Ad_Set.campaign_id')
 
-    ad = db.relationship('Ad', back_populates="ad_set")
+    ad = db.relationship('Ad', back_populates='ad_set', primaryjoin='Ad_Set.ad_set_id==Ad.ad_set_id', cascade='all, delete-orphan')
 
     #método construtor
     def __init__(self, name, campaign_id, date_start, date_end, public, budget):
