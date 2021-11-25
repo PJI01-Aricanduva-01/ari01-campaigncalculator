@@ -188,6 +188,7 @@ def adremove(ad_id):
 @app.route('/campsetreport/<campset_id>')
 def campsetreport(campset_id):
     campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
+
     campaign = db.session.query(Campaign, Ad_Set, Ad).\
         filter(Campaign.campaign_set_id==campset_id).\
         outerjoin(Campaign_Set.campaign).\
@@ -196,3 +197,4 @@ def campsetreport(campset_id):
         order_by(Campaign.campaign_id)
 
     return render_template('campsetreport.html', campset=campset, campaign=campaign)
+    

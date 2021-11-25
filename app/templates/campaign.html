@@ -31,7 +31,8 @@
                         <p class="card-text close-to">Fim:</p>
                         <p class="card-text">{{ adset.date_end.strftime('%d-%m-%Y') }}</p>
                         <p class="card-text">{{ adset.public }}</p>
-                        <p class="card-text">{{ adset.budget }}</p>
+                        <p class="card-text">R${{ adset.budget }}/dia</p>
+                        <p class="card-text">Total: R${{ adset.total_budget }}</p>
                         <p class="card-text close-to">Anúncios:</p>
                         {% for ad in adset.ad %}
                             <p class="card-text close-to">{{ ad.ad_id}} - {{ ad.name }}</p>
