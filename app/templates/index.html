@@ -4,7 +4,7 @@
 
       <div class="container">
         <div>
-          <h2>Esses são os Conjuntos de Campanhas: </h2>  
+          <h2>Conjuntos de Campanhas: </h2>  
         </div>
         <div>
           <ul id="campaignset" class="content-list">
@@ -12,6 +12,7 @@
             {% for x in campsets %}
               <li id="campaignset" class="card list-card" onClick="getid()">
                 <div class="content-in-top">
+                  <i class="fas fa-th-list" onClick="reportCampSet()"></i>
                   <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
                 </div>
                 <div class="content-in-bottom">
@@ -43,6 +44,12 @@
         function removeCampSet(){
           campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
           window.location.href = window.location.origin + "/campaignsetremove/" + campsetid;
+          event.stopPropagation();
+        }
+
+        function reportCampSet(){
+          campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+          window.location.href = window.location.origin + "/campsetreport/" + campsetid;
           event.stopPropagation();
         }
     </script>

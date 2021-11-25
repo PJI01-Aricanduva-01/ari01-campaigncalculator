@@ -8,12 +8,12 @@
     </div>
     <form action="" method="POST">
         {{ form.csrf_token }}
-        <h2>Nome da Campanha</h2>
+        <h2>Nova Campanha</h2>
         <div class="form-group">
             <label>Nome</label>
             {{ form.name(class="form-control", placeholder="Escreva um nome") }}
-            <label>Objetivo de Campanha</label>
-            {{ form.campaignobjective }}
+            <label>OEscolha um Objetivo de Campanha</label>
+            {{ form.campaignobjective(class="form-select") }}
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
         {% if form.errors.name %}

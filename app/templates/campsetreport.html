@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <h3><a href="{{ url_for('index') }}" >Início</a> >
+        <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id)}}">{{ campset.name }}</a> >
+        Relatório Conjunto de Campanhas
+    </h3>
+    <h1>Campanhas a criar em {{ campset.name }}</h1>
+    <div class="container">
+        <ul>
+            {% for campId, camp in campaign|groupby("Campaign.campaign_id") %}
+                <li>             
+                    <h3>{{ campId }} - {{ camp[0].Campaign.name }}</h3>
+                    <p>Objetivo: {{ camp[0].Campaign.campaign_objective.name }}</p>
+                        <ul>
+                            {% for adsetId, adset in camp|groupby("Ad_Set.ad_set_id") %}
+                                <li>
+                                    <p>{{ adsetId }} - {{ adset[0].Ad_Set.name }}</p>
+                                    <p>{{ adset[0].Ad_Set.date_start.strftime('%d-%m-%Y') }} ->
+                                    {{ adset[0].Ad_Set.date_end.strftime('%d-%m-%Y') }}</p>
+                                    <ul>
+                                        {% for adId, ad in adset|groupby("Ad.ad_id") %}
+                                            <li>
+                                                <p>{{ adId }} - {{ ad[0].Ad.name }}</p>
+                                                <p>{{ ad[0].Ad.campaign_creative }}</p>
+                                                <p>{{ ad[0].Ad.cta_link }}</p>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

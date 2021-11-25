@@ -103,7 +103,23 @@ li.list-card:hover{
     margin-top: 3em;
 }
 
-.fa-trash-alt:hover{
+.fa-trash-alt:hover, .fa-th-list:hover{
     font-size: 1.3em;
     color: rgb(133, 39, 39);
+}
+
+.btn-primary{
+    margin-top: 1em;
+}
+
+form{
+    margin: 1em 1em;
+}
+
+input{
+    margin: 1em;
+}
+
+select{
+    margin: 1em;
 }
