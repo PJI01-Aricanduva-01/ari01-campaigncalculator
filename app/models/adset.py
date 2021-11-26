@@ -14,7 +14,7 @@ class Ad_Set(db.Model):
     date_end = db.Column(db.DateTime)
     public = db.Column(db.String)
     budget = db.Column(db.Integer)
-    total_budget = db.Column(db.Numeric)
+    total_budget = db.Column(db.Numeric, db.Computed('budget * (date_end - date_start)'))
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
     campaign = db.relationship('Campaign', back_populates='ad_set', foreign_keys='Ad_Set.campaign_id')
