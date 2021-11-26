@@ -121,11 +121,12 @@ li.ad{
     border-radius:15px;
     width:300px;
     display: inline;
-  }
+}
 
 #divPesquisar *{
     display: inline;
 }
+
 
 /* estilo para o conteúdo em Pesquisar */  
 #txtPesquisar{
