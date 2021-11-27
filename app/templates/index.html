@@ -4,7 +4,7 @@
 
       <div class="container">
         <div>
-          <h2>Esses são os Conjuntos de Campanhas: </h2>  
+          <h2>Conjuntos de Campanhas: </h2>  
         </div>
         <div>
           <ul id="campaignset" class="content-list">
@@ -12,13 +12,18 @@
             {% for x in campsets %}
               <li id="campaignset" class="card list-card" onClick="getid()">
                 <div class="content-in-top">
-                  <i class="fas fa-trash-alt"></i>
+                  <i class="fas fa-th-list" onClick="reportCampSet()"></i>
+                  <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
                 </div>
                 <div class="content-in-bottom">
-                  <param name="id" value={{ x.campaign_set_id }}>
                   <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
                   <p class="card-text">criado em: {{ x.date_creation }}</p>
+                  <p class="card-text close-to">Campanhas:</p>
+                  {% for camp in x.campaign %}
+                    <p class="card-text close-to">{{ camp.campaign_id }} - {{ camp.name }}</p>
+                  {% endfor %}
                 </div>
+                <param name="id" value={{ x.campaign_set_id }}>
               </li> 
             {% endfor %} 
           </ul>
@@ -27,13 +32,25 @@
 
     <script>
         function getid(){
-          campsetid = event.target.parentElement.querySelector('param').getAttribute('value');
+          campsetid = event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
           window.location.href = window.location + "campaignset/" + campsetid;
           //alert(window.location + "campaignset/" + campsetid)
         }
 
         function newcampset(){
           window.location.href = window.location.origin + "/campaignsetcreate"
+        }
+
+        function removeCampSet(){
+          campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+          window.location.href = window.location.origin + "/campaignsetremove/" + campsetid;
+          event.stopPropagation();
+        }
+
+        function reportCampSet(){
+          campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+          window.location.href = window.location.origin + "/campsetreport/" + campsetid;
+          event.stopPropagation();
         }
     </script>
 

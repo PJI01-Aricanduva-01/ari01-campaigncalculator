@@ -1,3 +1,19 @@
+form{
+    margin: 1em 1em;
+}
+
+input{
+    margin: 1em;
+}
+
+select{
+    margin: 1em;
+}
+
+.btn-primary{
+    margin-top: 1em;
+}
+
 .flex{
     display: flex;
 }
@@ -7,7 +23,11 @@
     display: inline;
 }
 
-ul.content-list{
+.block{
+    display: block;
+}
+
+ul.content-list, ul.adset{
     display: grid;
     /* grid-auto-flow: column;
     grid-auto-flow: row;
@@ -20,9 +40,22 @@ ul.content-list{
     }
 }
 
+ul{
+    list-style: none;
+}
+
+ul.content-list-report{
+    list-style: none;
+
+}
+
+.report li{
+    background-color: red;
+}
 
 
-li.list-card{
+
+li.list-card, li.list-card-report{
     background-color: lightblue;
     margin: 1em;
     padding: 1em;
@@ -31,7 +64,10 @@ li.list-card{
     border-radius: 0.8em;
 }
 
-
+li.list-card:hover{
+    background-color: lightgreen;
+    cursor: pointer;
+}
 
 .content-add {
     text-decoration: none;
@@ -60,17 +96,23 @@ li.content-add i{
     font-size: 3em; 
 }
 
+li.camp{
+    background-color: lightcyan;
+}
 
+ul.content-list-report.ad{
+    padding: 0px;
+}
+
+li.ad{
+    background-color: darkcyan;
+    color: white;
+}
 
 .content-in-top{
     text-align: right;
 }
 
-
-li.list-card:hover{
-    background-color: lightgreen;
-    cursor: pointer;
-}
 
 /* estilo para o botão Pesquisar na navbar */
 #divPesquisar{
@@ -102,7 +144,13 @@ li.list-card:hover{
     margin-top: 3em;
 }
 
-.fa-trash-alt:hover{
+.fa-trash-alt:hover, .fa-th-list:hover{
     font-size: 1.3em;
     color: rgb(133, 39, 39);
+}
+
+
+
+.close-to{
+    margin-bottom: 0px;
 }
