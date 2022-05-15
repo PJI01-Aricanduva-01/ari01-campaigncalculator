@@ -14,21 +14,24 @@ class Campaign(db.Model):
     campaign_set_id = db.Column(db.Integer, db.ForeignKey('campaign_set.campaign_set_id'))
     date_creation = db.Column(db.DateTime)
     campaign_objective_id = db.Column(db.Integer, db.ForeignKey('campaign_objective.campaign_objective_id'))
+    agency_id = db.Column(db.Integer, db.ForeignKey('agency.agency_id'))
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
     campaign_set = db.relationship('Campaign_Set', back_populates='campaign', foreign_keys='Campaign.campaign_set_id')
+    agency = db.relationship('Agency', back_populates='campaign', foreign_keys='Campaign.agency_id')
 
     ad_set = db.relationship('Ad_Set', back_populates='campaign', primaryjoin='Campaign.campaign_id==Ad_Set.campaign_id', cascade='all, delete-orphan')
-
+    
     campaign_objective = db.relationship('Campaign_Objective', foreign_keys=campaign_objective_id)
 
 
     #método construtor
-    def __init__(self, name, campaign_set_id, campaign_objective_id):
+    def __init__(self, name, campaign_set_id, campaign_objective_id, agency_id):
         self.name = name
         self.campaign_set_id = campaign_set_id
         self.campaign_objective_id = campaign_objective_id
         self.date_creation = datetime.now()
+        self.agency_id = agency_id
 
     #método de representação
     def __repr__(self):
