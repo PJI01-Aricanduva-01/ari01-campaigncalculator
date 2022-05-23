@@ -5,6 +5,7 @@ from flask import render_template, redirect, url_for
 from app import app, db
 
 #importando os models
+from app.models.agency import Agency
 from app.models.formcampaignset import CampaignSetForm
 from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign

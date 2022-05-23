@@ -18,11 +18,12 @@ class Campaign(db.Model):
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
     campaign_set = db.relationship('Campaign_Set', back_populates='campaign', foreign_keys='Campaign.campaign_set_id')
-    agency = db.relationship('Agency', back_populates='campaign', foreign_keys='Campaign.agency_id')
 
     ad_set = db.relationship('Ad_Set', back_populates='campaign', primaryjoin='Campaign.campaign_id==Ad_Set.campaign_id', cascade='all, delete-orphan')
     
     campaign_objective = db.relationship('Campaign_Objective', foreign_keys=campaign_objective_id)
+
+    agency = db.relationship('Agency', back_populates='campaign', foreign_keys='Campaign.agency_id')
 
 
     #método construtor
