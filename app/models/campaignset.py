@@ -15,6 +15,7 @@ class Campaign_Set(db.Model):
     agency_id = db.Column(db.Integer, db.ForeignKey('agency.agency_id'))
 
     campaign = db.relationship('Campaign', back_populates='campaign_set', primaryjoin='Campaign_Set.campaign_set_id==Campaign.campaign_set_id', cascade='all, delete-orphan')
+
     agency = db.relationship('Agency', back_populates='campaign_set', foreign_keys='Campaign_Set.agency_id')
 
     #método construtor

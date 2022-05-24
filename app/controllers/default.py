@@ -22,6 +22,7 @@ from app.models.formad import AdForm
 @app.route('/index') #rota para index
 @app.route('/') #mesma rota para /
 def index():
+    agency = Agency.query.filter_by(agency_id=1).first()
     campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
     return render_template('index.html', campsets=campaignsets) #chamada do template index
 

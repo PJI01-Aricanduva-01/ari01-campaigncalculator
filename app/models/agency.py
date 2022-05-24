@@ -12,15 +12,11 @@ class Agency(db.Model):
     date_create = db.Column(db.DateTime)
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
+
     campaign_set = db.relationship('Campaign_Set', back_populates='agency', primaryjoin='Agency.agency_id==Campaign_Set.agency_id')
     campaign = db.relationship('Campaign', back_populates='agency', primaryjoin='Agency.agency_id==Campaign.agency_id')
     ad_set = db.relationship('Ad_Set', back_populates='agency', primaryjoin='Agency.agency_id==Ad_Set.agency_id')
     ad = db.relationship('Ad', back_populates='agency', primaryjoin='Agency.agency_id==Ad.agency_id')
-
-    # campaign_set = db.relationship('Campaign_Set', back_populates='agency', foreign_keys='Agency.agency_id')
-    # campaign = db.relationship('Campaign', back_populates='agency', foreign_keys='Agency.agency_id')
-    # ad_set = db.relationship('Ad_Set', back_populates='agency', foreign_keys='Agency.agency_id')
-    # ad = db.relationship('Ad', back_populates='agency', foreign_keys='Agency.agency_id')
     
     #método construtor
     def __init__(self, agency_id, name, date_create):
