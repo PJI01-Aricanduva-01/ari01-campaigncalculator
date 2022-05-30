@@ -11,3 +11,13 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaign
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 SECRET_KEY = 'nossa-chave-secreta-no-calc-campaign'
+
+#alteração do path do cookie para que a session da autenticação do usuário persista entre as blueprints
+SESSION_COOKIE_PATH = '/'
+
+ACCOUNT_NAME = "XXXXXXXXXXXXXXXXXXXX"
+ACCOUNT_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+CONNECTION_STRING = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+CONTAINER = "XXXXXX"
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg'])
+MAX_CONTENT_LENGTH = 20 * 1024 * 1024    # 20 Mb limit

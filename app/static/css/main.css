@@ -154,3 +154,13 @@ li.ad{
 .close-to{
     margin-bottom: 0px;
 }
+
+.drop_zone{
+    background-color: red;
+    padding: 1em;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    
+    border-radius: 5px;
+}
