@@ -17,8 +17,24 @@ class User(db.Model):
 
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
-    credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
+    #agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
+    #credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
+
+    #metodo de login
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False 
+
+    def get_id(self):
+        return str(self.id)
 
 
     #método construtor
