@@ -50,7 +50,7 @@ ul.content-list-report{
 }
 
 .report li{
-    background-color: red;
+    background-color: orange;
 }
 
 
@@ -65,7 +65,7 @@ li.list-card, li.list-card-report{
 }
 
 li.list-card:hover{
-    background-color: lightgreen;
+    background-color: rgb(52, 33, 163);
     cursor: pointer;
 }
 
@@ -82,7 +82,7 @@ li.content-add:hover{
 }
 
 li.content-add{
-    background-color: rgb(170, 228, 173);
+    background-color: rgb(153, 156, 173);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,7 +146,7 @@ li.ad{
 
 .fa-trash-alt:hover, .fa-th-list:hover{
     font-size: 1.3em;
-    color: rgb(133, 39, 39);
+    color: rgb(236, 128, 3);
 }
 
 
@@ -173,4 +173,74 @@ li.ad{
 
 .navbar-brand {
 	text-align: center;
+}
+
+/* estilo e cores do alto_baixo contraste */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  margin: 0;
+  transition: background 0.2s linear;
+}
+
+body.dark {
+  background: #1c2a53;
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  background-color: #111;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 5px;
+  position: relative;
+  height: 26px;
+  width: 50px;
+  transform: scale(1.5);
+
+}
+
+
+.label .ball {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 22px;
+  width: 22px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
+
+.fa-moon {
+  color: #f1c40f;
+}
+
+.fa-sun {
+  color: #f39c12;
 }
