@@ -154,3 +154,23 @@ li.ad{
 .close-to{
     margin-bottom: 0px;
 }
+
+.btn-container {
+    float: right;
+    display: inline;
+}
+
+.btn-container button {
+    float: left;
+    padding-left: 20px;
+}
+
+.nome-acessibilidade{
+    color: white;
+    padding: 2px;
+    text-align: center;
+}
+
+.navbar-brand {
+	text-align: center;
+}
