@@ -56,7 +56,8 @@ ul.content-list-report{
 
 
 li.list-card, li.list-card-report{
-    background-color: lightblue;
+    background-color: rgb(52, 33, 163);
+    color: white;
     margin: 1em;
     padding: 1em;
     height: fit-content(20%);
@@ -65,13 +66,14 @@ li.list-card, li.list-card-report{
 }
 
 li.list-card:hover{
-    background-color: rgb(52, 33, 163);
+    background-color: rgb(204, 90, 153);
     cursor: pointer;
 }
 
 .content-add {
     text-decoration: none;
-    color: grey;
+    /*color: grey;*/
+    color: black;
     text-align: center;
     vertical-align: middle;
 }
@@ -162,7 +164,7 @@ li.ad{
 
 .btn-container button {
     float: left;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .nome-acessibilidade{
@@ -177,16 +179,20 @@ li.ad{
 
 /* estilo e cores do alto_baixo contraste */
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+/* esse trecho de código zera as configurações dos css. Isolei para recuperar
+as formatações. Não identifiquei dano para o contraste
+
 * {
   margin: 0;
   padding: 0;
   border: 0;
   box-sizing: border-box;
 }
+*/
 
 body {
   background-color: #fafafa;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   justify-content: center;
 
@@ -196,7 +202,9 @@ body {
 }
 
 body.dark {
-  background: #1c2a53;
+  background: rgb(0, 0, 0);
+  color: white;
+  
 }
 
 .checkbox {
