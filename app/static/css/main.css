@@ -84,7 +84,7 @@ li.content-add:hover{
 }
 
 li.content-add{
-    background-color: rgb(153, 156, 173);
+    background-color: orange
     display: flex;
     align-items: center;
     justify-content: center;
