@@ -56,7 +56,7 @@ ul.content-list-report{
 
 
 li.list-card, li.list-card-report{
-    background-color: rgb(52, 33, 163);
+    background-color: rgb(64, 50, 141);
     color: white;
     margin: 1em;
     padding: 1em;
@@ -73,7 +73,7 @@ li.list-card:hover{
 .content-add {
     text-decoration: none;
     /*color: grey;*/
-    color: black;
+    color: whitesmoke;
     text-align: center;
     vertical-align: middle;
 }
@@ -84,7 +84,7 @@ li.content-add:hover{
 }
 
 li.content-add{
-    background-color: orange
+    background-color: rgb(223, 98, 14);
     display: flex;
     align-items: center;
     justify-content: center;
