@@ -1,29 +1,34 @@
-from flask import Blueprint, render_template, flash
-from flask_login import login_user
-from app import lm
+from flask import Blueprint, redirect, url_for, render_template, request, flash
+from flask_login import login_user, logout_user
 from app.models.user import User
 from app.models.login import LoginForm
 
 simplepage = Blueprint('simplepage', __name__, static_folder="static", template_folder="templates")
 
 
-@lm.user_loader
-def load_user(user_id):
-    return User.query.filter_by(user_id=user_id).first
 
-
-@simplepage.route('/simplepage')
 @simplepage.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(name=form.username.data).first()
-        if user and user.Password == form.data.password:    
-            login_user()
-            flash("Logged in")
-        else:
-            flash("Invalid login")
-    else:
-        print(form.errors)
-    return render_template("loginpage.html", form=form)
 
+    if form.validate_on_submit():
+        name = form.username.data
+        pwd = form.password.data
+        #user = User.query.get(form.name.data)
+        user = User.query.filter_by(name=name).first()
+
+        if not user or not user.verify_password(pwd):
+            flash("invalid login")
+            return render_template('loginpage.html', form=form)
+
+        login_user(user)
+        flash("login in")
+        return redirect(url_for('loginpage'))
+    
+    return render_template('loginpage.html', form=form)
+
+
+@simplepage.route('/logout')
+def logout():
+    logout_user()
+    return render_template('loginpage.html')

@@ -16,20 +16,10 @@
                 <div class="m-4">
                 <label for="exampleInputEmail1" class="form-label">Login</label>
                 {{ form.username(class="form-control", placeholder="seu_usuario") }}
-                {% if form.errors.username %}
-                <div class="alert alert-danger" role="alert">
-                    {{ form.errors.username }}
                 </div>
-                {% endif %}
-                </div> 
                 <div class="m-4">
                 <label for="exampleInputPassword1" class="form-label">Senha</label>
                 {{  form.password(class="form-control") }}
-                {% if form.errors.password %}
-                <div class="alert alert-danger" role="alert">
-                    {{ form.errors.password }}
-                </div>
-                {% endif %}
                 </div>
                 <div class="pb-1 form-check">
                 </div>
@@ -38,5 +28,16 @@
         </div>
     </div>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                    <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
 </body>
+
 </html>

@@ -15,8 +15,8 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 #criando a intância login
-lm = LoginManager()
-lm.init_app(app)
+lm = LoginManager(app)
+
 
 #importando os controllers 
 from app.controllers import default

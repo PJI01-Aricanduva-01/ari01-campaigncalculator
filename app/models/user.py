@@ -1,14 +1,20 @@
 #importando a classe db do objeto app
-from app import db
+from app import db, lm
+from flask_login import UserMixin
+
+@lm.user_loader
+def get_user(user_id):
+    return User.query.filter_by(user_id=user_id).first()
+
 
 #criando a classe que representa a tabela campaign_set
-class User(db.Model):
+class User(db.Model, UserMixin):
     #atributo que se refere ao nome real da tabela no bando de dados
     __tablename__ = "user"
 
     #atributos que se referem ao campos da tabela
     user_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name =  db.Column(db.String)
     agency_id = db.Column(db.Integer, db.ForeignKey('agency.agency_id'))
     date_create = db.Column(db.DateTime)
     Password = db.Column(db.String)
@@ -20,22 +26,7 @@ class User(db.Model):
     #agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
     #credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
 
-    #metodo de login
-    @property
-    def is_authenticated(self):
-        return True
-
-    @property
-    def is_active(self):
-        return True
-
-    @property
-    def is_anonymous(self):
-        return False 
-
-    def get_id(self):
-        return str(self.id)
-
+  
 
     #método construtor
     def __init__(self, user_id, name, agency_id, date_create, Password, credential_id):
