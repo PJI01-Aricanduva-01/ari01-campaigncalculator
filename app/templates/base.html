@@ -14,8 +14,13 @@
     <title>Calculadora de Campanha</title>
   </head>
   <body>
+     <!-- Acessibilidade - Botão para pular conteúdo 
+    Lógica do procedimento: referencia o conteudo principal na href. 
+    Como o site não utilizou html semântico, precisa usar o tabeindex="0" em todas as divs e elementos
+    -->
+    <a class="pular-conteudo" href="#container" tabindex="1">Pular para conteúdo</a>
     {% include "navbar.html" %}
-    <div class="container">
+    <div id="container" class="container">
         {% block content %}
         {% endblock %}
     </div>

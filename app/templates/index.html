@@ -2,18 +2,18 @@
 
 {% block content %}
 
-      <div class="container">
+      <div id="container" class="container">
         <div>
           <h2>Conjuntos de Campanhas: </h2>  
         </div>
         <div>
           <ul id="campaignset" class="content-list">
-            <li class="content-add card list-card" onClick="newcampset()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+            <li class="content-add card list-card" onClick="newcampset()" tabindex="0"><h5>Novo</h5><i class="fas fa-plus"></i></li>
             {% for x in campsets %}
-              <li id="campaignset" class="card list-card" onClick="getid()">
+              <li id="campaignset" class="card list-card" onClick="getid()" tabindex="0">
                 <div class="content-in-top">
-                  <i class="fas fa-th-list" onClick="reportCampSet()"></i>
-                  <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
+                  <i class="fas fa-th-list" onClick="reportCampSet()" tabindex="0"></i>
+                  <i class="fas fa-trash-alt" onClick="removeCampSet()" tabindex="0"></i>
                 </div>
                 <div class="content-in-bottom">
                   <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
