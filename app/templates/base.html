@@ -65,9 +65,15 @@
     <script type="text/javascript">
         const check = document.getElementById('check')
   
-  check.addEventListener('change', () => {
-    document.body.classList.toggle('dark')
-  })
+        check.addEventListener('change', () => {
+          document.body.classList.toggle('dark')
+        })
+
+        check.addEventListener("keypress", () => {
+          document.body.classList.toggle('dark')
+        })
+        
+
     </script>
   
 

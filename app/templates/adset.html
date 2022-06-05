@@ -14,11 +14,11 @@
     </div>
     <div>
         <ul class="content-list">
-            <li class="content-add card list-card" onclick="newad()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+            <li class="content-add card list-card" onclick="newad()" tabindex="0"><h5>Novo</h5><i class="fas fa-plus"></i></li>
                 {% for ad in ad %}
-                    <li class="card list-card">
+                    <li class="card list-card" tabindex="0">
                         <div class="content-in-top">
-                            <i class="fas fa-trash-alt" onClick="eraseAd()"></i>
+                            <i class="fas fa-trash-alt" onClick="eraseAd()" tabindex="0"></i>
                         </div>
                         <div class="content-in-bottom">
                             <p class="card-text">ID: {{ ad.ad_id }}</p>

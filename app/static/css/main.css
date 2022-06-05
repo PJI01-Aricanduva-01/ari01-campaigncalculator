@@ -273,3 +273,11 @@ body.dark {
     left: 15px;
     padding: 1px;
 }
+
+li.camp {
+    background-color: rgb(44, 49, 54);
+}
+
+#decrease-font {
+    margin-right: 20px;
+}
