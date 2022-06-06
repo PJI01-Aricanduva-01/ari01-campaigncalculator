@@ -1,28 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Início > CampaignSet </h3>
-</br>
-<div class="container">
-    <div class="campanhas">
-        <h2>Campanhas</h2>
-        <button type="button" class="btn btn-primary">Adicionar Campanha</button>
+    <div class="site-nav">
+        <h3><a href="/">Início</a> > {{ campaignset.name }} </h3>
     </div>
-        {% for x in campaigns %}
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ x.name }}</h5>
-                    <p class="card-text">{{ x.campaign_objective_id }}</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Criado em: {{ x.date_creation }}</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        {% endfor %}
-</div>
+    <div class="container">
+        <div class="flex">
+            <h2>Campanhas</h2>
+            <!-- <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button> -->
+        </div>            
+        <div>
+            <ul class="content-list">
+                <li class="content-add card list-card" onclick="newcampaign()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+                {% for camp in campaigns %}
+                    <li class="card list-card" onClick="getcampaign()">
+                        <div class="content-in-top">
+                            <i class="fas fa-trash-alt" onClick="removecampaign()"></i>
+                        </div>
+                        <div class="content-in-bottom">
+                            <p class="card-text">ID: {{ camp.campaign_id }}</p>
+                            <h5 class="card-title" class="card">{{ camp.name }}</h5>
+                            <p class="card-text close-to">{{ camp.campaign_objective.name }}</p>
+                            <p class="card-text">Criado em: {{ camp.date_creation.strftime('%d-%m-%Y') }}</p>
+                            <p class="card-text close-to">Conjuntos de Anúncios:</p>
+                            {% for adset in camp.ad_set %}
+                                <p class="card-text">{{ adset.ad_set_id }} - {{ adset.name }}</p>
+                            {% endfor %}
+                        </div>
+                        <param name="id" value={{ camp.campaign_id }}>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function getcampaign(){
+          //campid = event.target.parentElement.querySelector('param').getAttribute('value');
+          //window.location.href = window.location + "campaign/" + campid;
+          window.location.href = window.location.origin + "/campaign/" + event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
+          //alert(window.location + "campaign/" + campid)
+        }
+
+        function newcampaign(){
+            window.location.href = window.location.origin + "/campaigncreate/" + window.location.pathname.split('/').pop()
+        }
+
+        function removecampaign(){
+            campid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+            window.location.href = window.location.origin + "/campaignremove/" + campid;
+            event.stopPropagation();
+        }
+    </script>
+
 {% endblock %}

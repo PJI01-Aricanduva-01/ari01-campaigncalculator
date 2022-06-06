@@ -1,0 +1,41 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <div class="inline">
+        <h5><a href="{{ url_for('index') }}" >Início</a> >
+            <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id)}}">{{ campset.name }}</a> >
+            Relatório Conjunto de Campanhas
+        </h5>
+    </div>
+    <h1>Campanhas de: {{ campset.name }}</h1>
+    <div class="container">
+        <ul class="content-list-report campset">
+            {% for campId, camp in campaign|groupby("Campaign.campaign_id") %}
+                <li class="list-card-report camp">             
+                    <h3>{{ campId }} - {{ camp[0].Campaign.name }}</h3>
+                    <p>Objetivo: {{ camp[0].Campaign.campaign_objective.name }}</p>
+                    <p>Total: R${{ camp[0].Campaign.ad_set|sum(attribute='total_budget') }}</p>
+                        <ul class="content-list-report adset">
+                            {% for adsetId, adset in camp|groupby("Ad_Set.ad_set_id") %}
+                                <li class="list-card-report adset">
+                                    <h4>{{ adsetId }} - {{ adset[0].Ad_Set.name }}</h4>
+                                    <p>{{ adset[0].Ad_Set.date_start.strftime('%d-%m-%Y') }} ->
+                                    {{ adset[0].Ad_Set.date_end.strftime('%d-%m-%Y') }}</p>
+                                    <p>Total: R${{ adset[0].Ad_Set.total_budget }} </p>
+                                    <ul class="content-list-report ad">
+                                        {% for adId, ad in adset|groupby("Ad.ad_id") %}
+                                            <li class="list-card-report ad">
+                                                <h5>{{ adId }} - {{ ad[0].Ad.name }}</h5>
+                                                <p>{{ ad[0].Ad.campaign_creative }}</p>
+                                                <p>{{ ad[0].Ad.cta_link }}</p>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

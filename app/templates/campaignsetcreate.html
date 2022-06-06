@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h3><a href="{{ url_for('index') }}" >Início</a> > Novo Conjunto de Campanhas</h3>
+</div>
+<div class="container">
+    <h2>Dê um nome para o Conjunto de Campanhas</h2>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label>Nome</label>
+            {{ form.name(class="form-control", placeholder="Escreva um nome") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        {% if form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                {{ forms.errors.name }}
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

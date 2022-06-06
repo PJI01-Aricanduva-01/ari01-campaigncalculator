@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="inline">
+        <h3><a href="/" >Início</a> > 
+            <a href="{{ url_for('campaignset', campaignset_id=campset.campaign_set_id) }}"> {{ campset.name }} </a> > 
+            <a href="{{ url_for('campaign', campaign_id=campaign.campaign_id) }}">{{ campaign.name }} </a> > 
+            <a>{{ adset.name }}
+        </h3>
+    </div>
+    <div class="flex">
+        <h2>Anúncios</h2>
+        <!-- <button type="button" class="btn btn-primary" onclick="newad()">Adicionar Anúncio</button> -->
+    </div>
+    <div>
+        <ul class="content-list">
+            <li class="content-add card list-card" onclick="newad()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+                {% for ad in ad %}
+                    <li class="card list-card">
+                        <div class="content-in-top">
+                            <i class="fas fa-trash-alt" onClick="eraseAd()"></i>
+                        </div>
+                        <div class="content-in-bottom">
+                            <p class="card-text">ID: {{ ad.ad_id }}</p>
+                            <h5 class="card-title">{{ ad.name }}</h5>
+                            <p class="card-text">Criativo:</p>
+                            <p class="card-text">{{ ad.campaign_creative }}</p>
+                            <p class="card-text">Link de Saída:</p>
+                            <p class="card-text">{{ ad.cta_link }}</p>
+                        </div>
+                        <param name="id" value={{ ad.ad_id }}>                
+                    </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script type="text/javascript">
+        function newad(){
+            window.location.href = window.location.origin + "/adcreate/" + window.location.pathname.split('/').pop()
+        }
+
+        function eraseAd(){
+            adid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
+            window.location.href = window.location.origin + "/adremove/" + adid;
+            event.stopPropagation();
+        }
+    </script>
+{% endblock %}

@@ -13,15 +13,22 @@ class Ad_Set(db.Model):
     date_start = db.Column(db.DateTime)
     date_end = db.Column(db.DateTime)
     public = db.Column(db.String)
-    budget = db.Column(db.Decimal)
+    budget = db.Column(db.Integer)
+    total_budget = db.Column(db.Numeric, db.Computed('budget * (date_end - date_start)'))
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    campaign = db.relationship('Campaign', foreign_keys=campaign_id)
+    campaign = db.relationship('Campaign', back_populates='ad_set', foreign_keys='Ad_Set.campaign_id')
+
+    ad = db.relationship('Ad', back_populates='ad_set', primaryjoin='Ad_Set.ad_set_id==Ad.ad_set_id', cascade='all, delete-orphan')
 
     #método construtor
-    def __init__(self, name, campaign_set_id, campaign_objective_id):
+    def __init__(self, name, campaign_id, date_start, date_end, public, budget):
         self.name = name
-        self.campaign_id = campaign_set_id
+        self.campaign_id = campaign_id
+        self.date_start = date_start
+        self.date_end = date_end
+        self.public = public
+        self.budget = budget        
 
     #método de representação
     def __repr__(self):
