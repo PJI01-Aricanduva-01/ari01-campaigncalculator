@@ -4,6 +4,9 @@ from flask import render_template, redirect, url_for
 #importando as dependencias da própria aplicação
 from app import app, db
 
+#importando as dependencias do Storage do Azuer
+from azure.storage.blob import BlobServiceClient
+
 #importando os models
 from app.models.formcampaignset import CampaignSetForm
 from app.models.campaignset import Campaign_Set
@@ -99,7 +102,6 @@ def campaignremove(campaignId):
     db.session.delete(campaign)
     db.session.commit()
     return redirect(url_for('campaignset', campaignset_id=campSetId))
-
 
 
 @app.route('/adset/<adset_id>')

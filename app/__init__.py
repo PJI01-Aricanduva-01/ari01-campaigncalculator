@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 #registrando a BluePrint dragndropupload
 from app.controllers.dragndropupload import dragndropupload
-app.register_blueprint(dragndropupload, url_prefix="")
+app.register_blueprint(dragndropupload, url_prefix="/upload")
 
 #configurando o app Flask a partir de config.py
 app.config.from_object('config')
