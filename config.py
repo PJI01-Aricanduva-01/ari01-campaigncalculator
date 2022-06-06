@@ -15,9 +15,11 @@ SECRET_KEY = 'nossa-chave-secreta-no-calc-campaign'
 #alteração do path do cookie para que a session da autenticação do usuário persista entre as blueprints
 SESSION_COOKIE_PATH = '/'
 
-STORAGE_ACCOUNT_NAME = "storagecalccamp"
-STORAGE_ACCOUNT_KEY = "VL2Ag5DHfISLmOKGgnEXO6elV078ukhyhjaTx6kxVqj1ZigWrnfB7Xbx6NSfEO6AF4SkCi5rbROodPqJQlXPrQ=="
+
+AZURE_VAULT_ACCOUNT = "storagecalccamp"
+AZURE_STORAGE_KEY_NAME = "VL2Ag5DHfISLmOKGgnEXO6elV078ukhyhjaTx6kxVqj1ZigWrnfB7Xbx6NSfEO6AF4SkCi5rbROodPqJQlXPrQ=="
 STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=storagecalccamp;AccountKey=VL2Ag5DHfISLmOKGgnEXO6elV078ukhyhjaTx6kxVqj1ZigWrnfB7Xbx6NSfEO6AF4SkCi5rbROodPqJQlXPrQ==;EndpointSuffix=core.windows.net"
 STORAGE_CONTAINER = "images"
 STORAGE_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 STORAGE_MAX_CONTENT_LENGTH = 20 * 1024 * 1024    # 20 Mb limit
+
