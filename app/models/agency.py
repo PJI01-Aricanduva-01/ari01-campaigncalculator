@@ -1,6 +1,7 @@
 #importando a classe db do objeto app
 from app import db
 
+from datetime import datetime
 
 #criando a classe que representa a tabela campaign_set
 class Agency(db.Model):
@@ -18,13 +19,15 @@ class Agency(db.Model):
     campaign = db.relationship('Campaign', back_populates='agency', primaryjoin='Agency.agency_id==Campaign.agency_id')
     ad_set = db.relationship('Ad_Set', back_populates='agency', primaryjoin='Agency.agency_id==Ad_Set.agency_id')
     ad = db.relationship('Ad', back_populates='agency', primaryjoin='Agency.agency_id==Ad.agency_id')
+
+    user = db.relationship('User', back_populates='agency', primaryjoin='Agency.agency_id==User.agency_id')
+
     
     
     #método construtor
-    def __init__(self, agency_id, name, date_create):
-        self.agency_id = agency_id
+    def __init__(self, name):
         self.name = name
-        self.date_create = date_create
+        self.date_create = datetime.now()
 
     #método de representação
     def __repr__(self):

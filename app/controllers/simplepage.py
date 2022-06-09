@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user
 from app.models.user import User
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
-from app.models.agency import Agency
+from app.models.agency import *
 from app import db
 
 simplepage = Blueprint('simplepage', __name__, static_folder="static", template_folder="templates")
@@ -30,10 +30,10 @@ def register():
             flash('Digite a mesma senha') 
             return redirect(url_for('simplepage.register'))
         
-        reg = (agency_set_id.agency_id, credential_id, name, password)
+        reg = User(name, agency_set_id.agency_id, password, credential_id)
         print(reg)
-        #db.session.add(reg)
-        #db.session.commit()
+        db.session.add(reg)
+        db.session.commit()
         
         
         return redirect(url_for('simplepage.login'))
