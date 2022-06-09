@@ -4,7 +4,8 @@
 
       <div class="container">
         <div>
-          <h2>Conjuntos de Campanhas: </h2>  
+          <h2>Conjuntos de Campanhas: </h2>
+          <p class="card-text">Agência: {{ campsets.agency_id }}</p> 
         </div>
         <div>
           <ul id="campaignset" class="content-list">
@@ -16,6 +17,7 @@
                   <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
                 </div>
                 <div class="content-in-bottom">
+                  <p class="card-text">Agência: {{ x.agency_id }}</p> 
                   <h5 class="card-title">{{ x.campaign_set_id }} - {{ x.name }}</h5>
                   <p class="card-text">criado em: {{ x.date_creation }}</p>
                   <p class="card-text close-to">Campanhas:</p>

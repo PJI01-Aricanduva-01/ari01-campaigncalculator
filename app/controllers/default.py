@@ -4,7 +4,9 @@ from flask import render_template, redirect, url_for
 #importando as dependencias da própria aplicação
 from app import app, db
 
+
 #importando os models
+#from app.models.agency import Agency
 from app.models.formcampaignset import CampaignSetForm
 from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign
@@ -16,13 +18,21 @@ from app.models.ad import Ad
 from app.models.formad import AdForm
 
 
+from app.controllers.simplepage import simplepage
+
+
+app.register_blueprint(simplepage)
+
 
 #criação da rota para index
 @app.route('/index') #rota para index
 @app.route('/') #mesma rota para /
 def index():
+    #agency = Agency.query.filter_by(agency_id=1).first()
     campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
     return render_template('index.html', campsets=campaignsets) #chamada do template index
+
+
 
 @app.route('/sobre')
 @app.route('/about')
@@ -196,3 +206,4 @@ def campsetreport(campset_id):
 
     return render_template('campsetreport.html', campset=campset, campaign=campaign)
     
+
