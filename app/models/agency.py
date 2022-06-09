@@ -1,6 +1,7 @@
 #importando a classe db do objeto app
 from app import db
 
+
 #criando a classe que representa a tabela campaign_set
 class Agency(db.Model):
     #atributo que se refere ao nome real da tabela no bando de dados
@@ -17,6 +18,7 @@ class Agency(db.Model):
     campaign = db.relationship('Campaign', back_populates='agency', primaryjoin='Agency.agency_id==Campaign.agency_id')
     ad_set = db.relationship('Ad_Set', back_populates='agency', primaryjoin='Agency.agency_id==Ad_Set.agency_id')
     ad = db.relationship('Ad', back_populates='agency', primaryjoin='Agency.agency_id==Ad.agency_id')
+    
     
     #método construtor
     def __init__(self, agency_id, name, date_create):
