@@ -7,31 +7,23 @@ from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 from azure.storage.blob import BlobClient
 
-from app import models
+from app.models.file import *
 
 import config
 
-ALLOWED_EXTENTIONS = ['.png', '.jpg', '.jpeg']
-
 def create_blob_client(file_name):
-    default_credential = DefaultAzureCredential()
-
-    secret_client = SecretClient(
-        vault_url=config.AZURE_VAULT_ACCOUNT, credential=default_credential
-    )
-
-    storage_credentials = secret_client.get_secret(name=config.AZURE_STORAGE_KEY_NAME)
+    storage_credentials = config.AZURE_STORAGE_KEY_NAME
 
     return BlobClient(
         account_url=config.AZURE_STORAGE_ACCOUNT,
         container_name=config.AZURE_APP_BLOB_NAME,
         blob_name=file_name,
-        credential=storage_credentials.value,
+        credential=storage_credentials,
     )
 
 def check_file_ext(path):
     ext = Path(path).suffix
-    return ext in ALLOWED_EXTENTIONS
+    return ext in config.STORAGE_ALLOWED_EXTENSIONS
 
 def download_blob(file):
     blob_client = create_blob_client(file)
@@ -40,24 +32,25 @@ def download_blob(file):
     blob_content = blob_client.download_blob()
     return blob_content
 
-def save_file_url_to_db(file_url):
+def save_file_url_to_db(file_name ,file_url, ext, ad_id):
     #retificar com o model e método correto
-    new_file = models.File.objects.create(file_url=file_url)
-    new_file.save()
-    return new_file
+    file = File(file_name, file_url, ext, ad_id)
+    db.session.add(file)
+    db.session.commit()
+    return db.session
 
-def upload_file_to_blob(file):
+def upload_file_to_blob(file, ad):
 
-    if not check_file_ext(file.name):
+    if not check_file_ext(file.filename):
         return
 
     file_preffix = uuid.uuid4().hex
-    ext = Path(file.name).suffix
+    ext = Path(file.filename).suffix
     file_name = f"{file_preffix}{ext}"
     file_content = file.read()
     file_io = BytesIO(file_content)
     blob_client = create_blob_client(file_name=file_name)
-    blob_client.upload_to_blob(data=file_io)
-    file_object = save_file_url_to_db(blob_client.url)
+    blob_client.upload_blob(data=file_io)
+    file_object = save_file_url_to_db(file_name, blob_client.url, ext, ad.ad_id)
 
     return file_object

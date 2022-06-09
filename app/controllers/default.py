@@ -17,6 +17,7 @@ from app.models.adset import Ad_Set
 from app.models.formadset import AdsetForm
 from app.models.ad import Ad
 from app.models.formad import AdForm
+from app.models.file import *
 
 
 

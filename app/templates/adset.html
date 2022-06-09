@@ -24,17 +24,17 @@
                             <p class="card-text">ID: {{ ad.ad_id }}</p>
                             <h5 class="card-title">{{ ad.name }}</h5>
                             <p class="card-text">Criativo:</p>
-                            <div class="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event)">
-                                <form action="/upload" method="POST" enctype="multipart/form-data">
-                                    <p>Arraste uma imagem aqui</p>
-                                    <input type="file" name="image" value="file">
-                                </form>
-                            </div>
+                            <p>{{ ad.file.file_name }}</p>
+                            <form action="/upload/uploadfile/{{ ad.ad_id }}" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="file" value="file">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </form>
+                            
                             <p class="card-text">{{ ad.campaign_creative }}</p>
                             <p class="card-text">Link de Saída:</p>
                             <p class="card-text">{{ ad.cta_link }}</p>
                         </div>
-                        <param name="id" value={{ ad.ad_id }}>                
+                        <param name="id" value={{ ad.ad_id }}>            
                     </li>
             {% endfor %}
         </ul>
@@ -48,6 +48,11 @@
             adid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
             window.location.href = window.location.origin + "/adremove/" + adid;
             event.stopPropagation();
+        }
+
+        function uploadfile(){
+            adid = event.target.closest("li").querySelector("param").getAttribute('value');
+            window.location.href = window.location.origin + "/upload/uploadfile/" + adid;
         }
 
         function dropHandler(ev) {

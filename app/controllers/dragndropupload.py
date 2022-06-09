@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, render_template, redirect, url_for
+from flask import Flask, Blueprint, flash, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from azure.storage.blob import BlobServiceClient
@@ -7,53 +7,48 @@ import os
 
 from app import app
 
+from config import STORAGE_ALLOWED_EXTENSIONS
+
+from app.controllers.azure_file_controller import download_blob, upload_file_to_blob
+
+from app.models.campaignset import Campaign_Set
+from app.models.campaign import Campaign
+from app.models.adset import Ad_Set
+from app.models.ad import Ad
+
+
 dragndropupload = Blueprint("dragndropupload0", __name__, static_folder="static", template_folder="templates")
-
-account = app.config['STORAGE_ACCOUNT_NAME']
-key = app.config['STORAGE_ACCOUNT_KEY'] 
-connect_str = app.config['STORAGE_CONNECTION_STRING']
-container = app.config['STORAGE_CONTAINER']
-extencao_permitida = app.config['STORAGE_ALLOWED_EXTENSIONS']
-max_length = app.config['STORAGE_MAX_CONTENT_LENGTH']
-
-blobServiceClient = BlobServiceClient.from_connection_string(conn_str=connect_str)
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in extencao_permitida
-
-  #solução de teste
-@dragndropupload.route('/image', methods=["POST"])
-def upload_images():
-    if request.method == 'POST':
-        image = request.files["image"]
-        if image and allowed_file(image.filename):
-            filename = secure_filename(image.filename)
-            image.save(filename)
-            blob_client = blobServiceClient.get_blob_client(container=container, blob=filename)
-            with open(filename, "rb") as data:
-                try:
-                    blob_client.upload_blob(data, overwrite=True)
-                    msg = "Imagem enviada com Sucesso!"
-
-                except:
-                    pass
-            os.remove(filename)
-
-#solução definitiva
-from app.models import ALLOWED_EXTENTIONS, download_blob, upload_file_to_blob
-
-dragndropupload = Blueprint('dragndropupload0', __name__)
 
 @dragndropupload.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        file = request.FILES['file']
+        if 'file' not in request.files:
+            flash('não tem arquivo')
+            return redirect(url_for('index'))
+        file = request.files['file']
+        file_name = file.filename
+        return "Deu Quase" + file_name
+
+    return "Sem Arquivo"
+
+@dragndropupload.route('/uploadfile/<ad_id>', methods=['GET', 'POST'])
+def uploadFile(ad_id):
+    ad = Ad.query.filter_by(ad_id=ad_id).first()
+    adset_id = ad.ad_set_id
+
+    if request.method == 'POST':
+        file = request.files['file']
         ext = Path(file.name).suffix
-        new_file = upload_file_to_blob(file)
+        new_file = upload_file_to_blob(file, ad)
         if not new_file:
+            flash("Erro! A imagem não foi salva corretamente.")
             return "num deu certo"
-        new_file.file_name = file.name
-        new_file.file_extention = ext
-        new_file.save()
+
+        adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+        campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+        ad = Ad.query.filter_by(ad_set_id=adset_id)
+        return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+
+    
         
