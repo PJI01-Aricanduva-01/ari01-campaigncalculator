@@ -23,8 +23,8 @@ class User(db.Model, UserMixin):
 
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-    #agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
-    #credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
+    agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
+    credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
 
   
 

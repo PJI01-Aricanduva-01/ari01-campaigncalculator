@@ -1,12 +1,16 @@
 #telalogin{
     width: 350px;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 1px 5px 30px rgb(195, 195, 195);
     opacity: 0.7;
+}
+
+#telalogin a{
+    width: 160px;
 }
 
 #box_email{
@@ -20,4 +24,8 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.flashes{
+    color: red;
 }
