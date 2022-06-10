@@ -1,11 +1,13 @@
 #importando as bibliotecas FLASK
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 
 #importando as dependencias da própria aplicação
 from app import app, db
 
 #importando as dependencias do Storage do Azuer
 from azure.storage.blob import BlobServiceClient
+
+from app.controllers.azure_file_controller import download_blob
 
 #importando os models
 from app.models.formcampaignset import CampaignSetForm
@@ -110,6 +112,7 @@ def adset(adset_id):
     adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
     campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
     campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+    files = download_blob(adset_id)
     ad = Ad.query.filter_by(ad_set_id=adset_id)
     return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
 

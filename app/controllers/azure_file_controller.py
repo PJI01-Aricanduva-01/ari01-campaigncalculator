@@ -1,3 +1,4 @@
+from flask import Response
 from io import BytesIO
 from pathlib import Path
 from venv import create
@@ -8,6 +9,8 @@ from azure.keyvault.secrets import SecretClient
 from azure.storage.blob import BlobClient
 
 from app.models.file import *
+from app.models.adset import *
+from app.models.ad import *
 
 import config
 
@@ -25,12 +28,31 @@ def check_file_ext(path):
     ext = Path(path).suffix
     return ext in config.STORAGE_ALLOWED_EXTENSIONS
 
-def download_blob(file):
-    blob_client = create_blob_client(file)
-    if not blob_client.exist():
-        return
-    blob_content = blob_client.download_blob()
-    return blob_content
+def download_blob(ad_set_id):
+    ad_id_list = []
+    ad = Ad.query.filter_by(ad_set_id=ad_set_id).all()
+    for ad in ad:
+        ad_id_list.append(ad.ad_id)
+    files = File.query.filter(File.ad_id.in_(ad_id_list)).all()
+    file_name_list = []
+    file_downloaded = []
+    for url in files:
+        file_name_list.append(url.file_name)
+        blob_client = create_blob_client(url.file_name)
+        if not blob_client.exists():
+            continue
+        blob_content = blob_client.download_blob().readall()
+        if blob_content:
+            file_downloaded.append(blob_content.name)
+      
+    return file_downloaded
+
+    #file = ""
+    #blob_client = create_blob_client(file)
+    #if not blob_client.exist():
+    #    return
+    #blob_content = blob_client.download_blob()
+    #return blob_content
 
 def save_file_url_to_db(file_name ,file_url, ext, ad_id):
     #retificar com o model e método correto

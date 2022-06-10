@@ -24,7 +24,7 @@
                             <p class="card-text">ID: {{ ad.ad_id }}</p>
                             <h5 class="card-title">{{ ad.name }}</h5>
                             <p class="card-text">Criativo:</p>
-                            <p>{{ ad.file.file_name }}</p>
+                            <p>{{ ad.file[0].file_name }}</p>
                             <form action="/upload/uploadfile/{{ ad.ad_id }}" method="POST" enctype="multipart/form-data">
                                 <input type="file" name="file" value="file">
                                 <button type="submit" class="btn btn-primary">Enviar</button>
