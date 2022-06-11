@@ -10,10 +10,6 @@ class Credential(db.Model):
     credential_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
 
-    habilitie_01 = db.Column(db.Bit)
-    habilitie_02 = db.Column(db.Bit)
-    habilitie_03 = db.Column(db.Bit)
-
     habilitie_01 = db.Column(db.Boolean)
     habilitie_02 = db.Column(db.Boolean)
     habilitie_03 = db.Column(db.Boolean)

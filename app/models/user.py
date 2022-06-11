@@ -6,10 +6,8 @@ from datetime import datetime
 from app.models.credential import *
 
 @lm.user_loader
-def get_user(user_id):
-    return User.query.filter_by(user_id=user_id).first()
-
-
+def get_user(id):
+    return User.query.filter_by(user_id=id).first()
 #criando a classe que representa a tabela campaign_set
 class User(db.Model, UserMixin):
     #atributo que se refere ao nome real da tabela no bando de dados
@@ -24,12 +22,8 @@ class User(db.Model, UserMixin):
     credential_id = db.Column(db.Integer, db.ForeignKey('credential.credential_id'))
 
     #buscando as relações de chave estrangeiras nas tabelas equivalentes
-<<<<<<< HEAD
-    #agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
-=======
     agency = db.relationship('Agency', back_populates='user', foreign_keys='User.agency_id')
     
->>>>>>> f6c5b5901948db677984f27edbc0bc4f9da55158
     credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
 
     #método construtor

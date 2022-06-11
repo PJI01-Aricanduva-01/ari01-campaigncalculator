@@ -4,9 +4,10 @@ from app.models.user import User
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
 from app.models.agency import *
-from app import db
+from app import db, lm
 
 simplepage = Blueprint('simplepage', __name__, static_folder="static", template_folder="templates")
+
 
 
 @simplepage.route('/register/', methods=["GET", "POST"])
@@ -52,13 +53,13 @@ def login():
         #user = User.query.get(form.name.data)
         user = User.query.filter_by(name=name).first()
 
-        if not user or not user.verify_password(pwd):
+        if not user and user.Password != pwd:
             flash("invalid login")
             return render_template('loginpage.html', form=form)
-
+        
         login_user(user)
         flash("login in")
-        return redirect(url_for('loginpage'))
+        return redirect(url_for('index'))
     
     return render_template('loginpage.html', form=form)
 
