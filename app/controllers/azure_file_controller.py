@@ -42,17 +42,11 @@ def download_blob(ad_set_id):
         if not blob_client.exists():
             continue
         blob_content = blob_client.download_blob().readall()
+        
         if blob_content:
             file_downloaded.append(blob_content.name)
-      
-    return file_downloaded
 
-    #file = ""
-    #blob_client = create_blob_client(file)
-    #if not blob_client.exist():
-    #    return
-    #blob_content = blob_client.download_blob()
-    #return blob_content
+            return file_downloaded
 
 def save_file_url_to_db(file_name ,file_url, ext, ad_id):
     #retificar com o model e método correto
@@ -76,3 +70,9 @@ def upload_file_to_blob(file, ad):
     file_object = save_file_url_to_db(file_name, blob_client.url, ext, ad.ad_id)
 
     return file_object
+
+def delete_file_from_db(ad_id):
+    file = File.query.filter_by(ad_id==ad_id).first()
+    file.deleted = 1
+    db.session.commit()
+    return file

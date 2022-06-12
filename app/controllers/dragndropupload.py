@@ -15,6 +15,7 @@ from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign
 from app.models.adset import Ad_Set
 from app.models.ad import Ad
+from app.models.file import *
 
 
 dragndropupload = Blueprint("dragndropupload0", __name__, static_folder="static", template_folder="templates")
@@ -51,4 +52,21 @@ def uploadFile(ad_id):
         return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
 
     
-        
+@dragndropupload.route('/deletefile/<ad_id>', methods=['GET', 'POST'])
+def deleteFile(ad_id):
+    ad = Ad.query.filter_by(ad_id=ad_id).first()
+    adset_id = ad.ad_set_id
+    file = File.query.filter_by(ad_id=ad_id).first()
+    if not file:
+        flash("Erro: Imagem não encontrada...")
+        return redirect(url_for('adset', adset_id=adset_id))
+    file.deleted = 1
+    db.session.commit()
+    #file = File.query.filter_by(ad_id=ad_id).first().update({ File.deleted : 1 })
+
+    adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+    campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
+    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
+    ad = Ad.query.filter_by(ad_set_id=adset_id)
+    return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+

@@ -112,7 +112,6 @@ def adset(adset_id):
     adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
     campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
     campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
-    files = download_blob(adset_id)
     ad = Ad.query.filter_by(ad_set_id=adset_id)
     return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
 
@@ -184,6 +183,8 @@ def adcreate(adset_id):
 def adremove(ad_id):
     ad = Ad.query.filter_by(ad_id=ad_id).first()
     adset_id = ad.ad_set_id
+    file = File.query.filter_by(ad_id=ad_id).all()
+    file.deleted = 1
     db.session.delete(ad)
     db.session.commit()
     return redirect(url_for('adset', adset_id=adset_id))
