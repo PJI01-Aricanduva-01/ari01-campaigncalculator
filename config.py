@@ -10,4 +10,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaign
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+SESSION_TYPE = 'null'
+
+
 SECRET_KEY = 'nossa-chave-secreta-no-calc-campaign'

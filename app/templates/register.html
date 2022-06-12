@@ -3,8 +3,9 @@
 {% block content %}
 <form action="" method="POST">
     {{ form.csrf_token }}
-    <div class="mb-3">
-        <input type="text" name="agency" placeholder="agency">
+    <div class="mb-3 w-25">
+        <label>O Escolha um Objetivo de Campanha</label>
+        {{ form.agency(class="form-select") }}
     </div>
     <div class="mb-3">
         <label for="formGroupExampleInput" class="form-label">name</label>
@@ -23,7 +24,7 @@
     </div>
 </form>
 
-{% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class=flashes>
             {% for message in messages %}
@@ -33,5 +34,8 @@
         {% endif %}
     {% endwith %}
 
+<script>
+    options.innerHTML = options.innerHTML + "<button type='button'>Clique</button>";
+</script>
 
 {% endblock %}
