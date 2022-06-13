@@ -10,7 +10,6 @@
     </div>
     <div class="flex">
         <h2>Anúncios</h2>
-        <button type="button" class="btn btn-primary" onclick="newad()">Adicionar Anúncio</button>
     </div>
     <div>
         <ul class="content-list">
@@ -24,9 +23,9 @@
                             <p class="card-text">ID: {{ ad.ad_id }}</p>
                             <h5 class="card-title">{{ ad.name }}</h5>
                             <p class="card-text">Criativo:</p>
-                            <p>Deleted: {{ ad.file[0].deleted }}</p>
-                            {% if ad.file[0].file_id and ad.file[0].deleted == 0 %}
-                                <img src="{{ ad.file[0].file_url }}">
+                            <p>Deleted: {{ ad.file[-1].deleted }}</p>
+                            {% if ad.file[-1].file_id and ad.file[-1].deleted == 0 %}
+                                <img src="{{ ad.file[-1].file_url }}">
                                 <form action="/upload/deletefile/{{ ad.ad_id }}" method="POST" enctype="multipart/form-data">
                                     <button type="submit" class="btn btn-primary">Excluir arte</button>
                                 </form>

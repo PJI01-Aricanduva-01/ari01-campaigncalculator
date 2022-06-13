@@ -1,4 +1,5 @@
-from flask import Response
+from flask import flash
+from sqlalchemy import and_
 from io import BytesIO
 from pathlib import Path
 from venv import create
@@ -71,8 +72,19 @@ def upload_file_to_blob(file, ad):
 
     return file_object
 
-def delete_file_from_db(ad_id):
-    file = File.query.filter_by(ad_id==ad_id).first()
-    file.deleted = 1
-    db.session.commit()
-    return file
+def delete_file_from_db(model):
+
+
+        file = File.query.filter(and_(File.ad_id==ad_id, File.deleted==0)).all()
+
+
+        if not file:
+            flash("Erro: Imagem não encontrada...")
+            return file
+        if len(file) > 1:
+            for x in file:
+                x.deleted = 1
+            return file
+
+        return file
+    

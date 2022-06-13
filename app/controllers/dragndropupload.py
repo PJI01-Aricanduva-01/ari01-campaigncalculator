@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint, flash, request, render_template, redirect, url_for
+from sqlalchemy import and_
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from azure.storage.blob import BlobServiceClient
@@ -41,32 +42,29 @@ def uploadFile(ad_id):
         file = request.files['file']
         ext = Path(file.name).suffix
         new_file = upload_file_to_blob(file, ad)
+
         if not new_file:
             flash("Erro! A imagem não foi salva corretamente.")
-            return "num deu certo"
+            return redirect(url_for('adset', adset_id=adset_id))
 
-        adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
-        campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
-        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
-        ad = Ad.query.filter_by(ad_set_id=adset_id)
-        return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+        return redirect(url_for('adset', adset_id=adset_id))
 
     
 @dragndropupload.route('/deletefile/<ad_id>', methods=['GET', 'POST'])
 def deleteFile(ad_id):
     ad = Ad.query.filter_by(ad_id=ad_id).first()
     adset_id = ad.ad_set_id
-    file = File.query.filter_by(ad_id=ad_id).first()
+    file = File.query.filter(and_(File.ad_id==ad_id, File.deleted==0)).all()
     if not file:
         flash("Erro: Imagem não encontrada...")
         return redirect(url_for('adset', adset_id=adset_id))
-    file.deleted = 1
+    if len(file) > 1:
+        for x in file:
+            x.deleted = 1
+    
+    file[-1].deleted = 1
     db.session.commit()
-    #file = File.query.filter_by(ad_id=ad_id).first().update({ File.deleted : 1 })
 
-    adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
-    campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
-    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
-    ad = Ad.query.filter_by(ad_set_id=adset_id)
-    return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+    return redirect(url_for('adset', adset_id=adset_id))
 
+    # TODO tratar situação de quando surge uma requisição de deletar um elemento que é pai das imagens.
