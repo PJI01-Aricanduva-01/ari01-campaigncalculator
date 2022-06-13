@@ -1,9 +1,11 @@
 from flask import Blueprint, redirect, url_for, render_template, request, flash, session
 from flask_login import login_user, logout_user
+from sqlalchemy import null
 from app.models.user import User
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
 from app.models.agency import *
+from app.models.formagency import AgencyForm
 from app import db
 
 simplepage = Blueprint('simplepage', __name__, static_folder="static", template_folder="templates")
@@ -13,11 +15,17 @@ simplepage = Blueprint('simplepage', __name__, static_folder="static", template_
 @simplepage.route('/register/', methods=["GET", "POST"])
 def register():
 
+    form1 = AgencyForm()
     form = UserForm()
     form.agency.choices = [(g.agency_id, g.name) for g in Agency.query.all()]
-    
+    objective1 = form1.newagency.data
+      
     if form.validate_on_submit():
-        objective = form.agency.data
+        if objective1 == None:
+            objective = form.agency.data
+        else:
+            objective = objective1 #Nova agencia o programa adiciona no banco de dados.
+            print(objective)
         credential_id = 1
         name = form.username.data
         password = form.password.data
@@ -39,7 +47,7 @@ def register():
         
         return redirect(url_for('simplepage.login'))
 
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, form1=form1)
 
 
 @simplepage.route('/login', methods=["GET", "POST"])
