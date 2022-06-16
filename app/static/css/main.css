@@ -164,3 +164,48 @@ li.ad{
     
     border-radius: 5px;
 }
+
+.content-in-bottom img, .content-in-bottom form button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-in-bottom img{
+    max-width: 80%;
+
+}
+
+#flImage{
+    display: none;
+}
+
+.drop-zone{
+    max-width: 90%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0,6em;
+    padding: 10px;
+    background-color: beige;
+    border-radius: 10px;
+    border: 4px dashed #009578;
+    margin: auto;
+}
+
+.drop-zone--over{
+    border: 6px solid #00c29b;
+}
+
+#imgPhoto{
+    max-width: 50%;
+}
+
+.showup {
+    width: 100px;
+    height: 100px; 
+}
+.click {
+    cursor: pointer;
+    padding-bottom: 10px; 
+}
