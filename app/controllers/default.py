@@ -7,7 +7,7 @@ from app import app, db
 #importando as dependencias do Storage do Azuer
 from azure.storage.blob import BlobServiceClient
 
-from app.controllers.azure_file_controller import download_blob
+from app.controllers.azure_file_controller import download_blob, delete_file_from_blob
 
 #importando os models
 from app.models.formcampaignset import CampaignSetForm
@@ -22,6 +22,11 @@ from app.models.formad import AdForm
 from app.models.file import *
 
 
+
+#criação da rota página não encontrada
+@app.route('/404') #rota para index
+def error_404():
+    return render_template('404.html')
 
 #criação da rota para index
 @app.route('/index') #rota para index

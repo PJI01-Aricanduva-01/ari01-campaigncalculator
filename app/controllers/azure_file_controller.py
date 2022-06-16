@@ -12,6 +12,8 @@ from azure.storage.blob import BlobClient
 from app.models.file import *
 from app.models.adset import *
 from app.models.ad import *
+from app.models.campaign import Campaign
+from app.models.campaignset import Campaign_Set
 
 import config
 
@@ -72,19 +74,20 @@ def upload_file_to_blob(file, ad):
 
     return file_object
 
-def delete_file_from_db(model):
+#TODO-01 A Desenvolver 01
+# def delete_file_from_blob(model):
+
+#     if model.__class__.__name__ == "Campaign_Set":
+#         campaigns = Campaign.query.filter_by(campaign_set_id=model.campaign_set_id).all()
+#         for ad_set in campaigns:
+#             for ad_set.ad in ad_set:
+#                 print((ad_set.ad.ad_id))
+
+        
 
 
-        file = File.query.filter(and_(File.ad_id==ad_id, File.deleted==0)).all()
+#     file = File.query.filter(and_(File.ad_id==ads[0].ad_id, File.deleted==0)).all()
 
+#     return file
 
-        if not file:
-            flash("Erro: Imagem não encontrada...")
-            return file
-        if len(file) > 1:
-            for x in file:
-                x.deleted = 1
-            return file
-
-        return file
     

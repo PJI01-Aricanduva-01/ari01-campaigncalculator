@@ -23,15 +23,7 @@ dragndropupload = Blueprint("dragndropupload0", __name__, static_folder="static"
 
 @dragndropupload.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('não tem arquivo')
-            return redirect(url_for('index'))
-        file = request.files['file']
-        file_name = file.filename
-        return "Deu Quase" + file_name
-
-    return "Sem Arquivo"
+    return redirect(url_for('404'))
 
 @dragndropupload.route('/uploadfile/<ad_id>', methods=['GET', 'POST'])
 def uploadFile(ad_id):
