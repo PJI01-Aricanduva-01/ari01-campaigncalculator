@@ -7,8 +7,6 @@ from app import app, db
 #importando as dependencias do Storage do Azuer
 from azure.storage.blob import BlobServiceClient
 
-from app.controllers.azure_file_controller import download_blob, delete_file_from_blob
-
 #importando os models
 from app.models.formcampaignset import CampaignSetForm
 from app.models.campaignset import Campaign_Set
