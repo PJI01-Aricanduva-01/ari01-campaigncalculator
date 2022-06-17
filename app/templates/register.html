@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="container">
     <div class="row" id="clearLabel">
         <div class="mb-3 w-0 col-sm-4" id="newLabel">
-            <button type="submit" class="btn btn-success" id="new">Nova agência</button>
+            <a href='{{ url_for("simplepage.addagency") }}' class='btn btn-primary d-grid gap-3 col-6 mx-auto m-3' > Nova Agencia </a>
         </div>
 
         <div class="col-sm mt-4">
@@ -15,6 +14,7 @@
 </div>
 <form action="" method="POST">
     {{ form.csrf_token }}
+    
     <div class="container">
         <div class="row">
             <div class="mb-3 w-0 col-sm-4" id="novalabel">
@@ -54,17 +54,18 @@
         {% endif %}
     {% endwith %}
 
-<script>
+
+{% endblock %}
+
+<!--<script>
     let botaoNew = document.querySelector("#new");
 
     botaoNew.addEventListener('click', function() {
        clearlabel = document.getElementById("clearLabel").remove()
        remove = document.getElementById('clear').remove()
        novaLabel = '<label for="formGroupExampleInput" class="form-label">Nova Agencia</label>{{ form1.newagency(class="form-control") }}';
-       //novoBotao = '<button type="submit" class="btn btn-success">Adicionar</button>';
+       novoBotao = "<a href='{{ url_for('simplepage.addagency') }}' class='btn btn-primary d-grid gap-3 col-6 mx-auto m-3' > Adicionar </a>";
        novalabel.innerHTML = novaLabel;
-       //novobotao.innerHTML = novoBotao;
+       novobotao.innerHTML = novoBotao;
     });
-</script>
-
-{% endblock %}
+</script>-->

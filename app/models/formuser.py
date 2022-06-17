@@ -8,4 +8,5 @@ class UserForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired()])
     rpassword = PasswordField("rpassword", validators=[DataRequired()])
     agency = SelectField('agency_id', coerce=int, validators=[DataRequired()])
+
  

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Permissão</th>
+            <th scope="col">Negar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for user in user %}
+                <th scope="row">1</th>
+            
+                    <td>{{ user.name }}</td>
+                    <td>  
+                        <div class="checkbox">
+                        <label>
+                            {{ form.permitir }} Sim
+                        </label>
+                    </div> 
+                    </td>
+                    <td>
+                        <div class="checkbox">
+                        <label>
+                            {{ form.negar }} Não
+                        </label>
+                    </div>
+                    </td>
+            
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
+
+{% endblock %}

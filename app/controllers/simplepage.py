@@ -1,6 +1,7 @@
+from unicodedata import name
 from flask import Blueprint, redirect, url_for, render_template, request, flash, session
 from flask_login import login_user, logout_user
-from sqlalchemy import null
+from app.models.formagency import AgencyForm
 from app.models.user import User
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
@@ -15,22 +16,17 @@ simplepage = Blueprint('simplepage', __name__, static_folder="static", template_
 @simplepage.route('/register/', methods=["GET", "POST"])
 def register():
 
-    form1 = AgencyForm()
     form = UserForm()
     form.agency.choices = [(g.agency_id, g.name) for g in Agency.query.all()]
-    objective1 = form1.newagency.data
       
     if form.validate_on_submit():
-        if objective1 == None:
-            objective = form.agency.data
-        else:
-            objective = objective1 #Nova agencia o programa adiciona no banco de dados.
-            print(objective)
+        objective = form.agency.data
         credential_id = 1
         name = form.username.data
         password = form.password.data
         rpassword = form.rpassword.data
-        agency_set_id = Agency.query.filter_by(name=objective).first()
+        agency_set_id = Agency.query.filter_by(agency_id=objective).first()
+        print(objective)
     
         if not agency_set_id:
             flash('Agencia Invalida')
@@ -47,7 +43,22 @@ def register():
         
         return redirect(url_for('simplepage.login'))
 
-    return render_template('register.html', form=form, form1=form1)
+    return render_template('register.html', form=form)
+
+
+@simplepage.route('/addagency', methods=["GET", "POST"])
+def addagency():
+
+    form = AgencyForm()
+
+    if form.validate_on_submit():
+        objective1 = form.newagency.data
+        addagency = Agency(objective1)
+        db.session.add(addagency)
+        db.session.commit()
+        return render_template('register.html', form=form)
+    
+    return render_template('newagency.html', form=form)
 
 
 @simplepage.route('/login', methods=["GET", "POST"])
@@ -75,6 +86,16 @@ def login():
             return redirect(url_for('index'))
     
         return render_template('loginpage.html', form=form)
+
+
+@simplepage.route('/useragency', methods=["GET", "POST"])
+def useragency():
+
+    form = AgencyForm()
+
+    fil = session["user"][1]
+    user = User.query.filter_by(agency_id=fil).all()
+    return render_template('useragency.html', form=form, user=user)
 
 
 @simplepage.route('/logout')
