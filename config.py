@@ -1,7 +1,11 @@
+import dotenv, os
+
+dotenv.load_dotenv()
+
 DEBUG = True
 
 #configurando a URI para o DB do SQLAlchemy
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaigncalculator-db.mysql.database.azure.com/campcalc-db'
+SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 #string conexão SQLAlchemy para MySQL
 #'mysql://username:password@localhost/db_name
 #string de conexão azure:
@@ -10,4 +14,4 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaign
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-SECRET_KEY = 'nossa-chave-secreta-no-calc-campaign'
+SECRET_KEY = os.getenv('SECRET_KEY')
