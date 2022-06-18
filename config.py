@@ -1,4 +1,4 @@
-import dotenv, os
+import os, dotenv
 
 dotenv.load_dotenv()
 
