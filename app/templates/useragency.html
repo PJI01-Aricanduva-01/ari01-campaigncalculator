@@ -17,21 +17,22 @@
                 <th scope="row">1</th>
             
                     <td>{{ user.name }}</td>
-                    <td>  
-                        <div class="checkbox">
+                    <td> 
+                <div class="checkbox" name="acesso">
+                    <label>
                         <label>
                             {{ form.permitir }} Sim
                         </label>
-                    </div> 
+                </div> 
                     </td>
                     <td>
-                        <div class="checkbox">
+                        <div class="checkbox" name="acesso">
                         <label>
                             {{ form.negar }} Não
                         </label>
+                        </label>
                     </div>
                     </td>
-            
             </tr>
         {% endfor %}
         </tbody>
