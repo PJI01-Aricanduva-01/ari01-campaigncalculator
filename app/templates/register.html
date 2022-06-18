@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="POST">
+    {{ form.csrf_token }}
+    <div class="mb-3">
+        <input type="text" name="agency" placeholder="agency">
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">name</label>
+        {{ form.username(class="form-control", placeholder="name") }}
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Password</label>
+        {{ form.password(class="form-control", placeholder="password") }}
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Repeat Password</label>
+        {{ form.rpassword(class="form-control", placeholder="password") }}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary" value="register">Sign in</button>
+    </div>
+</form>
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                    <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+{% endblock %}
