@@ -1,5 +1,5 @@
 #importando as bibliotecas FLASK
-from flask import render_template, redirect, url_for, session
+from flask import render_template, redirect, url_for, session, flash
 
 #importando as dependencias da própria aplicação
 from app import app, db
@@ -51,7 +51,11 @@ def campaignset(campaignset_id):
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
         campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
         # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
-        return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
+        if campaignset.agency_id == session["user"][1]:     
+            return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
+        else:
+            flash("Acesso negado")
+            return redirect(url_for('index'))
     else:
         return redirect(url_for('simplepage.login'))
 
@@ -77,10 +81,18 @@ def campaignsetcreate():
 
 @app.route('/campaignsetremove/<campset_id>', methods=['GET', 'POST'])
 def campaignsetremove(campset_id):
-    campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
-    db.session.delete(campset)
-    db.session.commit()
-    return redirect(url_for('index'))
+    if "user" in session:
+        campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
+        if campset.agency_id == session["user"][1]:        
+            db.session.delete(campset)
+            db.session.commit()
+            return redirect(url_for('index'))
+        else:
+            flash("Acesso negado")
+            return redirect(url_for('index'))
+
+    else:
+        return redirect(url_for('simplepage.login'))
 
 
 #rota para a tela detalhes de campanha
@@ -90,7 +102,12 @@ def campaign(campaign_id):
         campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
         adsets = Ad_Set.query.filter_by(campaign_id=campaign_id) #consulta dos conjuntos de anuncio
-        return render_template('campaign.html', campaign=campaign, campset=campaign_set, adset=adsets) #chamada do template campaign
+        if campaign.agency_id == session["user"][1]:
+            return render_template('campaign.html', campaign=campaign, campset=campaign_set, adset=adsets) #chamada do template campaign
+        
+        else:
+            flash("Acesso negado")
+            return redirect(url_for("index"))    
     else:
         return redirect(url_for("simplepage.login"))
 
@@ -120,11 +137,20 @@ def campaigncreate(campaignset_id):
 
 @app.route('/campaignremove/<campaignId>', methods=['GET', 'POST'])
 def campaignremove(campaignId):
-    campaign = Campaign.query.filter_by(campaign_id=campaignId).first()
-    campSetId = campaign.campaign_set_id
-    db.session.delete(campaign)
-    db.session.commit()
-    return redirect(url_for('campaignset', campaignset_id=campSetId))
+    if "user" in session:
+        campaign = Campaign.query.filter_by(campaign_id=campaignId).first()
+        campSetId = campaign.campaign_set_id
+
+        if campaign.agency_id == session["user"][1]: 
+            db.session.delete(campaign)
+            db.session.commit()
+            return redirect(url_for('campaignset', campaignset_id=campSetId))
+        else:
+            flash("Acesso negado")
+            return redirect(url_for("index"))
+
+    else:
+        return redirect(url_for('simplepage.login'))
 
 
 
@@ -135,7 +161,12 @@ def adset(adset_id):
         campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
         ad = Ad.query.filter_by(ad_set_id=adset_id)
-        return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+        if adset.agency_id == session["user"][1]:
+            return render_template('adset.html', adset=adset, ad=ad, campaign=campaign, campset=campaign_set)
+
+        else:
+            flash('Acesso negado')
+            return redirect(url_for('index'))
     else:
         return redirect(url_for("simplepage.login"))
 
@@ -168,22 +199,37 @@ def adsetcreate(campaign_id):
 
 @app.route('/adsetremove/<adset_id>', methods=['GET', 'POST'])
 def adsetremove(adset_id):
-    adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
-    campaign_id = adset.campaign_id
-    db.session.delete(adset)
-    db.session.commit()
-    return redirect(url_for('campaign', campaign_id=campaign_id))
+    if "user" in session:
+        adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
+        campaign_id = adset.campaign_id
+        if adset.agency_id == session["user"][1]:
+            db.session.delete(adset)
+            db.session.commit()
+            return redirect(url_for('campaign', campaign_id=campaign_id))
+        else:
+            flash("Acesso negado")
+            return redirect(url_for("index"))
+
+    else:
+        return redirect(url_for('simplepage.login'))
 
 
 @app.route('/ad/<ad_id>', methods=['GET', 'POST'])
 def ad(ad_id):
+    if "user" in session:
+        ad = Ad.query.filter_by(ad_id=ad_id)
+        adset = Ad_Set.query.filter_by(ad_set_id=ad.ad_set_id).first()
+        campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first()
+        campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first() #consulta dos detalhes de campanha
+        ad = Ad.query.filter_by(ad_set_id=adset.adset_id)
+        if ad.agency_id == session["user"][1]:
+            return render_template('adcreate.html', campaign=campaign, campset=campaign_set, adset=adset, ad=ad)
+        else:
+            flash("Acesso negado")
+            return redirect(url_for('index'))
 
-    ad = Ad.query.filter_by(ad_id=ad_id)
-    adset = Ad_Set.query.filter_by(ad_set_id=ad.ad_set_id).first()
-    campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first()
-    campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first() #consulta dos detalhes de campanha
-    ad = Ad.query.filter_by(ad_set_id=adset.adset_id)
-    return render_template('adcreate.html', campaign=campaign, campset=campaign_set, adset=adset, ad=ad)
+    else:
+        return redirect(url_for('simplepage.login'))
 
 
 @app.route('/adcreate/<adset_id>', methods=['GET', 'POST'])
@@ -214,11 +260,19 @@ def adcreate(adset_id):
 
 @app.route('/adremove/<ad_id>', methods=['GET', 'POST'])
 def adremove(ad_id):
-    ad = Ad.query.filter_by(ad_id=ad_id).first()
-    adset_id = ad.ad_set_id
-    db.session.delete(ad)
-    db.session.commit()
-    return redirect(url_for('adset', adset_id=adset_id))
+    if "session" in session:
+        ad = Ad.query.filter_by(ad_id=ad_id).first()
+        adset_id = ad.ad_set_id
+        if ad.agency_id == session["user"][1]:
+            db.session.delete(ad)
+            db.session.commit()
+            return redirect(url_for('adset', adset_id=adset_id))
+        else:
+            flash("Acesso negado")
+            return redirect(url_for('index'))
+    
+    else:
+        return redirect(url_for('simplepage.login'))
 
 
 @app.route('/campsetreport/<campset_id>')
@@ -232,8 +286,14 @@ def campsetreport(campset_id):
             outerjoin(Campaign.ad_set).\
             outerjoin(Ad_Set.ad).\
             order_by(Campaign.campaign_id)
-
-        return render_template('campsetreport.html', campset=campset, campaign=campaign)
+        
+        if campset.agency_id == session["user"][1]:
+            return render_template('campsetreport.html', campset=campset, campaign=campaign)
+        
+        else:
+            flash("Acesso negado")
+            return redirect(url_for('index'))
+    
     else:
         return redirect(url_for('simplepage.login'))    
 

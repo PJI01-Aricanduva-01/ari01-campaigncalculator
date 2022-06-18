@@ -154,3 +154,14 @@ li.ad{
 .close-to{
     margin-bottom: 0px;
 }
+
+.flashes{
+    background: red;
+    text-align: left;
+    color: white;
+    height: 30px;
+    width: 160px;
+    position: absolute;
+    top: 60px;
+    right: 80px;
+}
