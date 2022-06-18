@@ -10,9 +10,9 @@ select{
     margin: 1em;
 }
 
-.btn-primary, .btn-cancelar{
+/* .btn-primary, .btn-cancelar{
     margin-top: 1em;
-}
+} */
 
 .btn-cancelar{
     background-color: #ff6a87;
@@ -66,6 +66,24 @@ li.list-card, li.list-card-report{
     height: fit-content(20%);
     border: none;
     border-radius: 0.8em;
+}
+
+.list-card-report div{
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.list-card-report div.flImage{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.list-card-report img{
+    max-width: 80%;
 }
 
 li.list-card:hover{
