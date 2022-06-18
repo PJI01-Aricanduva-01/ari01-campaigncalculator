@@ -187,7 +187,7 @@ def adremove(ad_id):
     ad = Ad.query.filter_by(ad_id=ad_id).first()
     adset_id = ad.ad_set_id
     file = File.query.filter_by(ad_id=ad_id).all()
-    file.deleted = 1
+    file[-1].deleted = 1
     db.session.delete(ad)
     db.session.commit()
     return redirect(url_for('adset', adset_id=adset_id))
