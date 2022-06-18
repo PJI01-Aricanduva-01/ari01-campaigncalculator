@@ -1,0 +1,31 @@
+#telalogin{
+    width: 350px;
+    padding-bottom: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 5px 30px rgb(195, 195, 195);
+    opacity: 0.7;
+}
+
+#telalogin a{
+    width: 160px;
+}
+
+#box_email{
+    width: 330px;
+    margin: 6px 2px 2px 6px;
+}
+
+body{
+    background-color: rgb(243, 243, 243);
+    background-image: url("https://img.freepik.com/fotos-gratis/pessoas-de-negocios-fazendo-um-aperto-de-mao-depois-de-negocios_120378-66.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flashes{
+    color: red;
+}
