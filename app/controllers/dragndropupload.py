@@ -37,11 +37,13 @@ def uploadFile(ad_id):
 
         if not new_file:
 
+
             return redirect(url_for('adset', adset_id=adset_id))
 
         return redirect(url_for('adset', adset_id=adset_id))
         
     return redirect(url_for('adset', adset_id=adset_id))
+
 
 
     
