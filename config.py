@@ -8,9 +8,11 @@ DEBUG = True
 #configurando a URI para o DB do SQLAlchemy
 SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 
+
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 #alteração do path do cookie para que a session da autenticação do usuário persista entre as blueprints
 SESSION_COOKIE_PATH = '/'
@@ -23,4 +25,5 @@ AZURE_APP_BLOB_NAME = os.getenv('AZURE_APP_BLOB_NAME')
 
 STORAGE_ALLOWED_EXTENSIONS = set(['.png', '.jpg', '.jpeg'])
 STORAGE_MAX_CONTENT_LENGTH = 20 * 1024 * 1024    # 20 Mb limit
+
 
