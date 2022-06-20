@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+     <link rel="stylesheet" href="./static/css/login.css">
+    <title>Login</title>
+</head>
+<body> -->
+    <link rel="stylesheet" href="./static/css/login.css">
+
+
+    <div class="card" id="telalogin">
+        <div class="card_body">
+            <form action="" method="POST">
+                {{ form.csrf_token }}
+                <div class="m-4">
+                <label for="exampleInputEmail1" class="form-label">Login</label>
+                {{ form.username(class="form-control", placeholder="seu_usuario") }}
+                </div>
+                <div class="m-4">
+                <label for="exampleInputPassword1" class="form-label">Senha</label>
+                {{  form.password(class="form-control") }}
+                </div>
+                <div class="pb-1 form-check">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success d-grid gap-3 col-6 mx-auto" >Login</button>
+                </div>
+                
+            </form>
+            <a href="{{ url_for('simplepage.register') }}" class="btn btn-primary d-grid gap-3 col-6 mx-auto"> Register </a>
+          
+        </div>
+        
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                    <li>- {{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+
+<!--</body>
+
+</html> -->
+
+{% endblock %}

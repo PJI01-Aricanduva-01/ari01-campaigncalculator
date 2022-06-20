@@ -2,7 +2,6 @@ import dotenv, os
 
 dotenv.load_dotenv()
 
-
 DEBUG = True
 
 #configurando a URI para o DB do SQLAlchemy

@@ -46,17 +46,18 @@ ul{
 
 ul.content-list-report{
     list-style: none;
-
+    
 }
 
 .report li{
-    background-color: red;
+    background-color: orange;
 }
 
 
 
 li.list-card, li.list-card-report{
-    background-color: lightblue;
+    background-color: rgb(61, 35, 209);
+    color: white;
     margin: 1em;
     padding: 1em;
     height: fit-content(20%);
@@ -65,24 +66,26 @@ li.list-card, li.list-card-report{
 }
 
 li.list-card:hover{
-    background-color: lightgreen;
+    background-color: rgb(204, 90, 153);
+    color: whitesmoke;
     cursor: pointer;
 }
 
 .content-add {
     text-decoration: none;
-    color: grey;
+    /*color: grey;*/
+    color: whitesmoke;
     text-align: center;
     vertical-align: middle;
 }
 
 li.content-add:hover{
     text-decoration: none;
-    color: black;
+    color: whitesmoke;
 }
 
 li.content-add{
-    background-color: rgb(170, 228, 173);
+    background-color: rgb(223, 98, 14);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,11 +145,12 @@ li.ad{
 
 .container{
     margin-top: 3em;
+    
 }
 
 .fa-trash-alt:hover, .fa-th-list:hover{
     font-size: 1.3em;
-    color: rgb(133, 39, 39);
+    color: rgb(236, 128, 3);
 }
 
 
@@ -154,6 +158,7 @@ li.ad{
 .close-to{
     margin-bottom: 0px;
 }
+
 
 .drop_zone{
     background-color: red;
@@ -163,4 +168,127 @@ li.ad{
     text-align: center;
     
     border-radius: 5px;
+
+
+.btn-container {
+    float: right;
+    display: inline;
+        
+}
+
+.btn-container button {
+    float: left;
+    padding-left: 10px;
+}
+
+.nome-acessibilidade{
+    color: white;
+    padding: 2px;
+    text-align: center;
+}
+
+.navbar-brand {
+	text-align: center;
+}
+
+/* estilo e cores do alto_baixo contraste */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+/* esse trecho de código zera as configurações dos css. Isolei para recuperar
+as formatações. Não identifiquei dano para o contraste
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+*/
+
+body {
+  background-color: #fafafa;
+  /*display: flex;*/
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.2s linear;
+}
+
+body.dark {
+  background: rgb(0, 0, 0);
+  color: white;
+  
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  background-color: #111;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 5px;
+  position: relative;
+  height: 26px;
+  width: 50px;
+  transform: scale(1.5);
+
+}
+
+
+.label .ball {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 22px;
+  width: 22px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
+
+.fa-moon {
+  color: #f1c40f;
+}
+
+.fa-sun {
+  color: #f39c12;
+}
+
+.pular-conteudo {
+	position: absolute;
+    left: -1000px;
+    top: 5px;
+    border: 2px solid black;
+    background-color: rgb(52, 33, 163);;
+    padding: 8px;
+    text-decoration: none;
+    color: white;
+}
+
+.pular-conteudo:focus{
+    position: relative;
+    top: 2px;
+    left: 15px;
+    padding: 1px;
+}
+
+li.camp {
+    background-color: rgb(44, 49, 54);
+}
+
+#decrease-font {
+    margin-right: 20px;
+
 }

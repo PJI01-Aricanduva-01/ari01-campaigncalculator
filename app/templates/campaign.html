@@ -17,11 +17,11 @@
     </div>
     <div>
         <ul class="content-list">
-            <li class="content-add card list-card" onclick="newadset()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+            <li class="content-add card list-card" onclick="newadset()" tabindex="0"><h5>Novo</h5><i class="fas fa-plus"></i></li>
             {% for adset in adset %}
-                <li class="card list-card" onClick="getadset()">
+                <li class="card list-card" onClick="getadset()" tabindex="0">
                     <div class="content-in-top">
-                        <i class="fas fa-trash-alt" onClick="adsetremove()"></i>
+                        <i class="fas fa-trash-alt" onClick="adsetremove()" tabindex="0"></i>
                     </div> 
                     <div>
                         <p class="card-title">ID: {{ adset.ad_set_id }}</p>
