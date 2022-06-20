@@ -6,6 +6,7 @@ dotenv.load_dotenv()
 DEBUG = True
 
 #configurando a URI para o DB do SQLAlchemy
+
 SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 
 
@@ -22,8 +23,8 @@ AZURE_VAULT_ACCOUNT = os.getenv('AZURE_VAULT_ACCOUNT')
 AZURE_STORAGE_KEY_NAME = os.getenv('AZURE_STORAGE_KEY_NAME')
 AZURE_APP_BLOB_NAME = os.getenv('AZURE_APP_BLOB_NAME')
 
-
 STORAGE_ALLOWED_EXTENSIONS = set(['.png', '.jpg', '.jpeg'])
 STORAGE_MAX_CONTENT_LENGTH = 20 * 1024 * 1024    # 20 Mb limit
+
 
 

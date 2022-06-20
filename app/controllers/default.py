@@ -4,6 +4,8 @@ from flask import render_template, redirect, url_for, flash
 #importando as dependencias da própria aplicação
 from app import app, db
 
+from azure.storage.blob import BlobServiceClient
+
 
 #importando as dependencias do Storage do Azuer
 from azure.storage.blob import BlobServiceClient
@@ -23,18 +25,13 @@ from app.models.formad import AdForm
 from app.models.file import *
 
 
+app.register_blueprint(simplepage)
 
 
 #criação da rota página não encontrada
 @app.route('/404') #rota para index
 def error_404():
     return render_template('404.html')
-=======
-from app.controllers.simplepage import simplepage
-
-
-app.register_blueprint(simplepage)
-
 
 
 #criação da rota para index
@@ -201,7 +198,7 @@ def adremove(ad_id):
     ad = Ad.query.filter_by(ad_id=ad_id).first()
     adset_id = ad.ad_set_id
     file = File.query.filter_by(ad_id=ad_id).all()
-    file.deleted = 1
+    file[-1].deleted = 1
     db.session.delete(ad)
     db.session.commit()
     return redirect(url_for('adset', adset_id=adset_id))
@@ -211,11 +208,12 @@ def adremove(ad_id):
 def campsetreport(campset_id):
     campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
 
-    campaign = db.session.query(Campaign, Ad_Set, Ad).\
+    campaign = db.session.query(Campaign, Ad_Set, Ad, File).\
         filter(Campaign.campaign_set_id==campset_id).\
         outerjoin(Campaign_Set.campaign).\
         outerjoin(Campaign.ad_set).\
         outerjoin(Ad_Set.ad).\
+        outerjoin(Ad.file).\
         order_by(Campaign.campaign_id)
 
     return render_template('campsetreport.html', campset=campset, campaign=campaign)
