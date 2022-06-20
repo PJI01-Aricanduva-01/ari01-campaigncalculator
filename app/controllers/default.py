@@ -7,10 +7,6 @@ from app import app, db
 from azure.storage.blob import BlobServiceClient
 
 
-#importando as dependencias do Storage do Azuer
-from azure.storage.blob import BlobServiceClient
-
-
 #importando os models
 #from app.models.agency import Agency
 from app.models.formcampaignset import CampaignSetForm
@@ -23,6 +19,9 @@ from app.models.formadset import AdsetForm
 from app.models.ad import Ad
 from app.models.formad import AdForm
 from app.models.file import *
+
+
+from app.controllers.simplepage import simplepage
 
 
 app.register_blueprint(simplepage)
