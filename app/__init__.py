@@ -21,4 +21,8 @@ lm = LoginManager(app)
 #importando os controllers 
 from app.controllers import default
 
+#registrando a BluePrint dragndropupload
+from app.controllers.dragndropupload import dragndropupload
+app.register_blueprint(dragndropupload, url_prefix="/upload")
+
 

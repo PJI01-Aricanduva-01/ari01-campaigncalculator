@@ -20,6 +20,8 @@ class Ad(db.Model):
     
     agency = db.relationship('Agency', back_populates='ad', foreign_keys='Ad.agency_id')
 
+    file = db.relationship('File', back_populates='ad', primaryjoin='Ad.ad_id==File.ad_id', cascade='all, delete-orphan')
+
     #método construtor
     def __init__(self, name, ad_set_id, campaign_creative, cta_link, agency_id):
         self.name = name
