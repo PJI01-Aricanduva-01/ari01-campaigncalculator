@@ -1,8 +1,6 @@
-ENVIROMENT = 'production'
+import dotenv, os
 
-if ENVIROMENT == 'dev':
-    import dotenv, os
-    dotenv.load_dotenv()
+dotenv.load_dotenv()
 
 DEBUG = True
 
