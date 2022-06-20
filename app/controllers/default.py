@@ -16,6 +16,7 @@ from app.models.adset import Ad_Set
 from app.models.formadset import AdsetForm
 from app.models.ad import Ad
 from app.models.formad import AdForm
+from app.models.fuction import permitir
 
 
 from app.controllers.simplepage import simplepage
@@ -28,14 +29,15 @@ app.register_blueprint(simplepage)
 @app.route('/index') #rota para index
 @app.route('/') #mesma rota para /
 def index():
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         #agency = Agency.query.filter_by(agency_id=1).first()
         fil = session["user"][1]
         campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all()
         #campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
         return render_template('index.html', campsets=campaignsets) #chamada do template index
     else:
-        return redirect(url_for("simplepage.login"))
+        return redirect(url_for("simplepage.logout"))
 
 
 @app.route('/sobre')
@@ -47,7 +49,8 @@ def about():
 #criação da rota para detalhe de campaingset
 @app.route('/campaignset/<campaignset_id>') #rota para campaignset passando o id clicado como parametro
 def campaignset(campaignset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
         campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
         # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
@@ -57,13 +60,14 @@ def campaignset(campaignset_id):
             flash("Acesso negado")
             return redirect(url_for('index'))
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 #rota para tela de criação de campaignset
 @app.route('/campaignsetcreate', methods=['GET', 'POST']) #rota para o campaignset com permissão de métodos GET e POST para o retorno do formulário
 def campaignsetcreate():
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         form = CampaignSetForm() #criação do objeto formulário
 
         if form.validate_on_submit(): #verificação dos dados pelo usuário. No evento de clique Submit, o wtforms recupera os dados e faz a verificação atravez desse métoro
@@ -77,11 +81,12 @@ def campaignsetcreate():
         else:
             return render_template('campaignsetcreate.html', form=form) #no caso de metodo GET (usuário acessou a página de criação), chamada do template campaignsetcreate
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 @app.route('/campaignsetremove/<campset_id>', methods=['GET', 'POST'])
 def campaignsetremove(campset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede:
         campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
         if campset.agency_id == session["user"][1]:        
             db.session.delete(campset)
@@ -92,13 +97,14 @@ def campaignsetremove(campset_id):
             return redirect(url_for('index'))
 
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 #rota para a tela detalhes de campanha
 @app.route('/campaign/<campaign_id>') #rota para tela de campanha
 def campaign(campaign_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         campaign = Campaign.query.filter_by(campaign_id=campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
         adsets = Ad_Set.query.filter_by(campaign_id=campaign_id) #consulta dos conjuntos de anuncio
@@ -109,11 +115,12 @@ def campaign(campaign_id):
             flash("Acesso negado")
             return redirect(url_for("index"))    
     else:
-        return redirect(url_for("simplepage.login"))
+        return redirect(url_for("simplepage.logout"))
 
 @app.route('/campaigncreate/<campaignset_id>', methods=['GET', 'POST'])
 def campaigncreate(campaignset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         form = CampaignForm()
         form.campaignobjective.choices = [(g.campaign_objective_id, g.name) for g in Campaign_Objective.query.all()]
 
@@ -132,12 +139,13 @@ def campaigncreate(campaignset_id):
             campaignobj = Campaign_Objective.query.all()
             return render_template('campaigncreate.html', form=form, campset=campaignset, campobj=campaignobj)
     else:
-        return redirect(url_for("simplepage.login"))
+        return redirect(url_for("simplepage.logout"))
 
 
 @app.route('/campaignremove/<campaignId>', methods=['GET', 'POST'])
 def campaignremove(campaignId):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         campaign = Campaign.query.filter_by(campaign_id=campaignId).first()
         campSetId = campaign.campaign_set_id
 
@@ -150,13 +158,14 @@ def campaignremove(campaignId):
             return redirect(url_for("index"))
 
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 
 @app.route('/adset/<adset_id>')
 def adset(adset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
         campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first() #consulta dos detalhes de campanha
         campaign_set = Campaign_Set.query.filter_by(campaign_set_id=campaign.campaign_set_id).first()
@@ -168,12 +177,13 @@ def adset(adset_id):
             flash('Acesso negado')
             return redirect(url_for('index'))
     else:
-        return redirect(url_for("simplepage.login"))
+        return redirect(url_for("simplepage.logout"))
 
 
 @app.route('/adsetcreate/<campaign_id>', methods=['GET', 'POST'])
 def adsetcreate(campaign_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         form = AdsetForm()
 
         if form.validate_on_submit():
@@ -194,12 +204,13 @@ def adsetcreate(campaign_id):
             adset = Ad_Set.query.filter_by(campaign_id=campaign_id).all() #consulta dos conjuntos de anuncio
             return render_template('adsetcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset)
     else:
-        return redirect(url_for("simplepage.login"))
+        return redirect(url_for("simplepage.logout"))
 
 
 @app.route('/adsetremove/<adset_id>', methods=['GET', 'POST'])
 def adsetremove(adset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         adset = Ad_Set.query.filter_by(ad_set_id=adset_id).first()
         campaign_id = adset.campaign_id
         if adset.agency_id == session["user"][1]:
@@ -211,12 +222,13 @@ def adsetremove(adset_id):
             return redirect(url_for("index"))
 
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 @app.route('/ad/<ad_id>', methods=['GET', 'POST'])
 def ad(ad_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         ad = Ad.query.filter_by(ad_id=ad_id)
         adset = Ad_Set.query.filter_by(ad_set_id=ad.ad_set_id).first()
         campaign = Campaign.query.filter_by(campaign_id=adset.campaign_id).first()
@@ -229,12 +241,13 @@ def ad(ad_id):
             return redirect(url_for('index'))
 
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 @app.route('/adcreate/<adset_id>', methods=['GET', 'POST'])
 def adcreate(adset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         form = AdForm()
 
         if form.validate_on_submit():
@@ -255,12 +268,13 @@ def adcreate(adset_id):
             return render_template('adcreate.html', form=form, campaign=campaign, campset=campaign_set, adset=adset, ad=ad)
     
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 @app.route('/adremove/<ad_id>', methods=['GET', 'POST'])
 def adremove(ad_id):
-    if "session" in session:
+    crede = permitir(session["user"][2])
+    if "session" in session and crede == True:
         ad = Ad.query.filter_by(ad_id=ad_id).first()
         adset_id = ad.ad_set_id
         if ad.agency_id == session["user"][1]:
@@ -272,12 +286,13 @@ def adremove(ad_id):
             return redirect(url_for('index'))
     
     else:
-        return redirect(url_for('simplepage.login'))
+        return redirect(url_for('simplepage.logout'))
 
 
 @app.route('/campsetreport/<campset_id>')
 def campsetreport(campset_id):
-    if "user" in session:
+    crede = permitir(session["user"][2])
+    if "user" in session and crede == True:
         campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
 
         campaign = db.session.query(Campaign, Ad_Set, Ad).\
@@ -295,5 +310,5 @@ def campsetreport(campset_id):
             return redirect(url_for('index'))
     
     else:
-        return redirect(url_for('simplepage.login'))    
+        return redirect(url_for('simplepage.logout'))    
 

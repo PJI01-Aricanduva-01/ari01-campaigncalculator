@@ -156,12 +156,28 @@ li.ad{
 }
 
 .flashes{
-    background: red;
     text-align: left;
-    color: white;
-    height: 30px;
-    width: 160px;
+    color: red;
+    height: 100px;
+    width: 300px;
     position: absolute;
     top: 60px;
     right: 80px;
+}
+
+
+.permissao{
+    position: relative;
+    text-align: left;
+    right: 30px;
+}
+
+.label{
+    position: relative;
+    left: 310px;
+}
+
+.label1{
+    position: relative;
+    left: 200px;
 }
