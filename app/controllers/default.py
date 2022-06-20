@@ -4,8 +4,6 @@ from flask import render_template, redirect, url_for, flash
 #importando as dependencias da própria aplicação
 from app import app, db
 
-
-#importando as dependencias do Storage do Azure
 from azure.storage.blob import BlobServiceClient
 
 
@@ -23,18 +21,16 @@ from app.models.formad import AdForm
 from app.models.file import *
 
 
+from app.controllers.simplepage import simplepage
+
+
+app.register_blueprint(simplepage)
 
 
 #criação da rota página não encontrada
 @app.route('/404') #rota para index
 def error_404():
     return render_template('404.html')
-
-from app.controllers.simplepage import simplepage
-
-
-app.register_blueprint(simplepage)
-
 
 
 #criação da rota para index

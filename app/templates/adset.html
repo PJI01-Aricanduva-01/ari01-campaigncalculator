@@ -22,8 +22,7 @@
                         <div class="content-in-bottom">
                             <p class="card-text">ID: {{ ad.ad_id }}</p>
                             <h5 class="card-title">{{ ad.name }}</h5>
-                            <p class="card-text">Criativo:</p>
-                            
+                            <p class="card-text">Criativo:</p>                           
                                 {% if ad.file and ad.file[-1].deleted == 0 %}
                                     <img src="{{ ad.file[-1].file_url }}" draggable="false">
                                     <form action="/upload/deletefile/{{ ad.ad_id }}" method="POST" enctype="multipart/form-data">
@@ -39,7 +38,6 @@
                                         </div>
                                     </form>
                                 {% endif %}
-                            
                             <p class="card-text">{{ ad.campaign_creative }}</p>
                             <p class="card-text">Link de Saída:</p>
                             <p class="card-text">{{ ad.cta_link }}</p>
@@ -59,6 +57,7 @@
             window.location.href = window.location.origin + "/adremove/" + adid;
             event.stopPropagation();
         }
+
 
         let dropzone = document.querySelectorAll('.drop-zone');
 
@@ -132,6 +131,42 @@
                 console.log(cleanInputs);
             });
         });
+
+
+        function uploadfile(){
+            adid = event.target.closest("li").querySelector("param").getAttribute('value');
+            window.location.href = window.location.origin + "/upload/uploadfile/" + adid;
+        }
+
+        function dropHandler(ev) {
+            console.log('File(s) dropped');
+
+            // Impedir o comportamento padrão (impedir que o arquivo seja aberto)
+            ev.preventDefault();
+
+            if (ev.dataTransfer.items) {
+            // Use a interface DataTransferItemList para acessar o (s) arquivo (s)
+                for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+            // Se os itens soltos não forem arquivos, rejeite-os
+                    if (ev.dataTransfer.items[i].kind === 'file') {
+                        var file = ev.dataTransfer.items[i].getAsFile();
+                        console.log('... file[' + i + '].name = ' + file.name);
+                    }
+                }
+            } else {
+            // Use a interface DataTransfer para acessar o (s) arquivo (s)
+                for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+                    console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+                }
+            }
+        }
+
+        function dragOverHandler(ev) {
+            console.log('File(s) in drop zone');
+
+            // Impedir o comportamento padrão (impedir que o arquivo seja aberto)
+            ev.preventDefault();
+        }
 
     </script>
 {% endblock %}

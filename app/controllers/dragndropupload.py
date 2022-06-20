@@ -36,11 +36,13 @@ def uploadFile(ad_id):
         new_file = upload_file_to_blob(file, ad)
 
         if not new_file:
+
             return redirect(url_for('adset', adset_id=adset_id))
 
         return redirect(url_for('adset', adset_id=adset_id))
         
     return redirect(url_for('adset', adset_id=adset_id))
+
 
     
 @dragndropupload.route('/deletefile/<ad_id>', methods=['GET', 'POST'])

@@ -165,6 +165,7 @@ li.ad{
 
 
 
+
 .content-in-bottom img, .content-in-bottom form button{
     display: block;
     margin-left: auto;
@@ -222,6 +223,7 @@ li.ad{
 
 .disabled img{
     opacity: 50%;
+
 
 .btn-container {
     float: right;

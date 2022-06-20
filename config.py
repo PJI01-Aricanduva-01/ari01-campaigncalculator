@@ -25,4 +25,3 @@ STORAGE_CONTAINER = "images"
 STORAGE_ALLOWED_EXTENSIONS = set(['.png', '.jpg', '.jpeg'])
 STORAGE_MAX_CONTENT_LENGTH = 20 * 1024 * 1024    # 20 Mb limit
 
-
