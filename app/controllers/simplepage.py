@@ -2,7 +2,7 @@
 from flask import Blueprint, redirect, url_for, render_template, request, flash, session
 from flask_login import login_user, logout_user
 from app.models.formagency import AgencyForm
-from app.models.user import User
+from app.models.user import *
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
 from app.models.agency import *
@@ -86,7 +86,7 @@ def login():
             #agencyid = User.query.filter_by(agency_id=agency_id).first
         
 
-            if not user and user.Password != pwd:
+            if not user or not user.verify_password(pwd):
                 flash("invalid login")
                 return render_template('loginpage.html', form=form)
 
@@ -108,7 +108,7 @@ def useragency():
         permissao = form.permissao.data
         if user_choice and permissao == "permitir":
             credential = Credential.query.filter_by(credential_id=user_choice).first()
-            if credential.name  == "Responsavel" or credential.name == "User":
+            if credential.name  == "Responsavel":
                 flash('Não tem permissão para essa ação')
                 return redirect(url_for('index'))    
             credential.name = "User"
@@ -120,7 +120,7 @@ def useragency():
         
         if user_choice and permissao == "negar":
             credential = Credential.query.filter_by(credential_id=user_choice).first()
-            if credential.name  == "Responsavel" or credential.name == "User":
+            if credential.name  == "Responsavel":
                 flash('Não tem permissão para essa ação')
                 return redirect(url_for('index'))
             credential.name = "Convidado"

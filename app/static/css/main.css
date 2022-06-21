@@ -167,17 +167,18 @@ li.ad{
 
 
 .permissao{
-    position: relative;
     text-align: left;
-    right: 30px;
+    right: 200px;
 }
 
 .label{
-    position: relative;
-    left: 310px;
+    position: fixed;
+    right: 300px;
+    top: 100px;
 }
 
 .label1{
-    position: relative;
-    left: 200px;
+    position: fixed;
+    right: 180px;
+    top: 100px;
 }
