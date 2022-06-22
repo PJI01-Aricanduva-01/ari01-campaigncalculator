@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post">
+    {{ form.csrf_token }}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col" class="label">Permissão</th>
+            <th scope="col" class="label1">Negar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            
+                <th scope="row">1</th>
+            
+                    <td>  
+                        <div class="mb-3 w-0 col-sm-4" id="novalabel">
+                            {{ form.user_id(class="form-select") }}
+                        </div>
+                </td>
+                    <td>
+                    
+                    {% for subfield in form.permissao %}
+                        <td class="permissao">{{ subfield }}</td>
+                        
+                    {% endfor %}
+                    </td>
+                </div> 
+            </tr>
+        
+        </tbody>
+    </table>
+    <div>
+        <button type="submit" class="btn btn-success d-grid gap-3 col-6 mx-auto" >Atualizar</button>
+    </div>
+</form>
+
+{% endblock %}

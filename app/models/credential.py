@@ -9,19 +9,16 @@ class Credential(db.Model):
     #atributos que se referem ao campos da tabela
     credential_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+
     habilitie_01 = db.Column(db.Boolean)
-    habilitie_02 = db.Column(db.Boolean)
-    habilitie_03 = db.Column(db.Boolean)
 
     user = db.relationship('User', back_populates='credential', primaryjoin='Credential.credential_id==User.credential_id')
     
-    
     #método construtor
-    def __init__(self, name, habilitie_01, habilitie_02, habilitie_03):
+    def __init__(self, name, habilitie_01):
         self.name = name
         self.habilitie_01 = habilitie_01
-        self.habilitie_02 = habilitie_02
-        self.habilitie_03 = habilitie_03
+
 
     #método de representação
     def __repr__(self):

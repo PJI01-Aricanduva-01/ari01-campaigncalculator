@@ -5,7 +5,7 @@
       <div id="container" class="container">
         <div>
           <h2>Conjuntos de Campanhas: </h2>
-          <p class="card-text">Agência: {{ campsets.agency_id }}</p> 
+          <p class="card-text">Agência: {{ campsets[0].agency_id }}</p> 
         </div>
         <div>
           <ul class="content-list">
@@ -31,6 +31,16 @@
           </ul>
         </div>          
       </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+                  <li>- {{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+    {% endwith %}
 
     <script>
         function getid(){

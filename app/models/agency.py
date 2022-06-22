@@ -23,6 +23,7 @@ class Agency(db.Model):
     user = db.relationship('User', back_populates='agency', primaryjoin='Agency.agency_id==User.agency_id')
 
     
+    
     #método construtor
     def __init__(self, name):
         self.name = name

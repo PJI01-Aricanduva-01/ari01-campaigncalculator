@@ -1,7 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,9 +8,7 @@
      <link rel="stylesheet" href="./static/css/login.css">
     <title>Login</title>
 </head>
-<body> -->
-    <link rel="stylesheet" href="./static/css/login.css">
-
+<body>
 
     <div class="card" id="telalogin">
         <div class="card_body">
@@ -34,7 +29,7 @@
                 </div>
                 
             </form>
-            <a href="{{ url_for('simplepage.register') }}" class="btn btn-primary d-grid gap-3 col-6 mx-auto"> Register </a>
+            <a href="{{ url_for('simplepage.register') }}" class="btn btn-primary d-grid gap-3 col-6 mx-auto m-3" > Register </a>
           
         </div>
         
@@ -51,8 +46,6 @@
     {% endwith %}
     
 
-<!--</body>
+</body>
 
-</html> -->
-
-{% endblock %}
+</html>

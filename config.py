@@ -10,6 +10,9 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaign
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+SESSION_TYPE = 'null'
+
+
 SECRET_KEY = 'nossa-chave-secreta-no-calc-campaign'
 
 #alteração do path do cookie para que a session da autenticação do usuário persista entre as blueprints
