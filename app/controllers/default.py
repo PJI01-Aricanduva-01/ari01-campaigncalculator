@@ -298,7 +298,7 @@ def campsetreport(campset_id):
     if "user" in session:
         campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
 
-        campaign = db.session.query(Campaign, Ad_Set, Ad).\
+        campaign = db.session.query(Campaign, Ad_Set, Ad, File).\
             filter(Campaign.campaign_set_id==campset_id).\
             outerjoin(Campaign_Set.campaign).\
             outerjoin(Campaign.ad_set).\
