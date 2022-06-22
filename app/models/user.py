@@ -27,7 +27,8 @@ class User(db.Model, UserMixin):
     
     credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
 
-    #metodo get para aplicação na biblioteca Flask-Login.login
+
+    #método get para utilização da biblioteca Flask-login.login()
     def get_id(self):
         return (self.user_id)
 
