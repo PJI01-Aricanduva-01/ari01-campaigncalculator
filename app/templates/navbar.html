@@ -2,6 +2,8 @@
    <div class="container-fluid">
 
       <!-- Identidade + botão Home -->
+      <img src="../static/images/LOGO.png" width="100" alt="peça de xadrez">
+      
       <a class="navbar-brand" href="/">Calculadora de Campanhas</a>
 
       <!-- Botão Sobre -->
@@ -19,5 +21,28 @@
           </li>
         </ul>
       </div>
+      <div class="btn-container">
+        <p class="nome-acessibilidade">Acessibilidade</p>
+        <button name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
+        <button name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
+
+        
+         <!-- Inclusão do botão de alto e baixo contraste para acessibilidade -->
+        <input type="checkbox" class="checkbox" id="check" />
+          
+          <label class="label" for="check">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <div class="ball"></div>
+          </label>
+        
+        
+      </div>
+
+     
+      
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
+
   </div>
 </nav>

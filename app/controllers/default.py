@@ -4,6 +4,8 @@ from flask import render_template, redirect, url_for, session, flash
 #importando as dependencias da própria aplicação
 from app import app, db
 
+from azure.storage.blob import BlobServiceClient
+
 
 #importando os models
 from app.models.agency import Agency
@@ -17,12 +19,18 @@ from app.models.formadset import AdsetForm
 from app.models.ad import Ad
 from app.models.formad import AdForm
 from app.models.fuction import permitir
-
+from app.models.file import *
 
 from app.controllers.simplepage import simplepage
 
 
 app.register_blueprint(simplepage)
+
+
+#criação da rota página não encontrada
+@app.route('/404') #rota para index
+def error_404():
+    return render_template('404.html')
 
 
 #criação da rota para index
@@ -159,7 +167,6 @@ def campaignremove(campaignId):
         return redirect(url_for('simplepage.login'))
 
 
-
 @app.route('/adset/<adset_id>')
 def adset(adset_id):
     if "user" in session:
@@ -266,10 +273,13 @@ def adcreate(adset_id):
 
 @app.route('/adremove/<ad_id>', methods=['GET', 'POST'])
 def adremove(ad_id):
+
     if "session" in session:
         ad = Ad.query.filter_by(ad_id=ad_id).first()
         adset_id = ad.ad_set_id
-        if ad.agency_id == session["user"][1]:
+        file = File.query.filter_by(ad_id=ad_id).all()
+        if ad.agency_id == session["user"][1]:            
+            file[-1].deleted = 1
             db.session.delete(ad)
             db.session.commit()
             return redirect(url_for('adset', adset_id=adset_id))
@@ -281,8 +291,10 @@ def adremove(ad_id):
         return redirect(url_for('simplepage.login'))
 
 
+
 @app.route('/campsetreport/<campset_id>')
 def campsetreport(campset_id):
+
     if "user" in session:
         campset = Campaign_Set.query.filter_by(campaign_set_id=campset_id).first()
 
@@ -291,6 +303,7 @@ def campsetreport(campset_id):
             outerjoin(Campaign_Set.campaign).\
             outerjoin(Campaign.ad_set).\
             outerjoin(Ad_Set.ad).\
+            outerjoin(Ad.file).\
             order_by(Campaign.campaign_id)
         
         if campset.agency_id == session["user"][1]:
@@ -299,6 +312,7 @@ def campsetreport(campset_id):
         else:
             flash("Acesso negado")
             return redirect(url_for('index'))
+
     
     else:
         return redirect(url_for('simplepage.login'))    

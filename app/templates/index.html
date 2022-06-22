@@ -2,19 +2,19 @@
 
 {% block content %}
 
-      <div class="container">
+      <div id="container" class="container">
         <div>
           <h2>Conjuntos de Campanhas: </h2>
           <p class="card-text">Agência: {{ campsets[0].agency_id }}</p> 
         </div>
         <div>
-          <ul id="campaignset" class="content-list">
-            <li class="content-add card list-card" onClick="newcampset()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+          <ul class="content-list">
+            <li id="nova-campanha" class="content-add card list-card" onClick="newcampset()" tabindex="0"><h5>Novo</h5><i class="fas fa-plus"></i></li>
             {% for x in campsets %}
-              <li id="campaignset" class="card list-card" onClick="getid()">
+              <li id="campaignset" class="card list-card" onClick="getid()" tabindex="0">
                 <div class="content-in-top">
-                  <i class="fas fa-th-list" onClick="reportCampSet()"></i>
-                  <i class="fas fa-trash-alt" onClick="removeCampSet()"></i>
+                  <i class="fas fa-th-list" onClick="reportCampSet()" tabindex="0"></i>
+                  <i class="fas fa-trash-alt" onClick="removeCampSet()" tabindex="0"></i>
                 </div>
                 <div class="content-in-bottom">
                   <p class="card-text">Agência: {{ x.agency_id }}</p> 
@@ -48,17 +48,31 @@
           window.location.href = window.location + "campaignset/" + campsetid;
           //alert(window.location + "campaignset/" + campsetid)
         }
+        //Acessibilidade. Acessa função getid pelo enter
+        function addEnter_getid(){
+          document.getElementById("campaignset").addEventListener("keypress", getid);
+        }
+        window.addEventListener("load", addEnter_getid)
 
+
+        
         function newcampset(){
           window.location.href = window.location.origin + "/campaignsetcreate"
         }
+        //Acessibilidade. Acessa função newcampset pelo enter
+        function addEnter_newcampset(){
+          document.getElementById("nova-campanha").addEventListener("keypress", newcampset);
+        }
+        window.addEventListener("load", addEnter_newcampset)
 
+        
+        
         function removeCampSet(){
           campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
           window.location.href = window.location.origin + "/campaignsetremove/" + campsetid;
           event.stopPropagation();
         }
-
+        
         function reportCampSet(){
           campsetid = event.target.parentElement.parentElement.querySelector('* param').getAttribute('value');
           window.location.href = window.location.origin + "/campsetreport/" + campsetid;

@@ -4,18 +4,18 @@
     <div class="site-nav">
         <h3><a href="/">Início</a> > {{ campaignset.name }} </h3>
     </div>
-    <div class="container">
+    <div id="container" class="container">
         <div class="flex">
             <h2>Campanhas</h2>
             <!-- <button type="button" class="btn btn-primary" onclick="newcampaign()">Adicionar Campanha</button> -->
         </div>            
         <div>
             <ul class="content-list">
-                <li class="content-add card list-card" onclick="newcampaign()"><h5>Novo</h5><i class="fas fa-plus"></i></li>
+                <li class="content-add card list-card" onclick="newcampaign()" tabindex="0"><h5>Novo</h5><i class="fas fa-plus"></i></li>
                 {% for camp in campaigns %}
-                    <li class="card list-card" onClick="getcampaign()">
+                    <li class="card list-card" onClick="getcampaign()" tabindex="0">
                         <div class="content-in-top">
-                            <i class="fas fa-trash-alt" onClick="removecampaign()"></i>
+                            <i class="fas fa-trash-alt" onClick="removecampaign()" tabindex="0"></i>
                         </div>
                         <div class="content-in-bottom">
                             <p class="card-text">ID: {{ camp.campaign_id }}</p>
