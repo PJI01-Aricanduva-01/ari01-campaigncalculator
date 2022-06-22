@@ -30,7 +30,7 @@ app.register_blueprint(simplepage)
 @app.route('/') #mesma rota para /
 def index():
     if "user" in session:
-        per = permitir(session["user"][2])
+        per = permitir(session["user"][1])
         if per == 0:
             #agency = Agency.query.filter_by(agency_id=1).first()
             fil = session["user"][1]
