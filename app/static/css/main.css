@@ -154,3 +154,31 @@ li.ad{
 .close-to{
     margin-bottom: 0px;
 }
+
+.flashes{
+    text-align: left;
+    color: red;
+    height: 100px;
+    width: 300px;
+    position: absolute;
+    top: 60px;
+    right: 80px;
+}
+
+
+.permissao{
+    text-align: left;
+    right: 200px;
+}
+
+.label{
+    position: fixed;
+    right: 300px;
+    top: 100px;
+}
+
+.label1{
+    position: fixed;
+    right: 180px;
+    top: 100px;
+}

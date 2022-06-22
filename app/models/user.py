@@ -2,6 +2,7 @@
 from app import db, lm
 from flask_login import UserMixin
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.credential import *
 
@@ -26,6 +27,7 @@ class User(db.Model, UserMixin):
     
     credential = db.relationship('Credential', back_populates='user', foreign_keys='User.credential_id')
 
+
     #método get para utilização da biblioteca Flask-login.login()
     def get_id(self):
         return (self.user_id)
@@ -35,8 +37,12 @@ class User(db.Model, UserMixin):
         self.name = name
         self.agency_id = agency_id
         self.date_create = datetime.now()
-        self.Password = Password
+        self.Password = generate_password_hash(Password)
         self.credential_id = credential_id
+
+    
+    def verify_password(self, pwd):
+        return check_password_hash(self.Password, pwd)
 
     #método de representação
     def __repr__(self):

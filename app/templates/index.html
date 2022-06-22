@@ -32,6 +32,16 @@
         </div>          
       </div>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+                  <li>- {{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+    {% endwith %}
+
     <script>
         function getid(){
           campsetid = event.target.parentElement.parentElement.querySelector('param').getAttribute('value');
