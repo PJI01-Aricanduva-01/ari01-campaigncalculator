@@ -396,3 +396,15 @@ li.camp {
 .alerta-arrastar-imagem{
     color: black;
 }
+
+
+.botoes-aumentar-reduzir-fonte{
+    float: right;
+    width: 180px;
+}
+
+.label {
+    position: fixed;
+    top: 65px;
+    right: 30px;
+}
