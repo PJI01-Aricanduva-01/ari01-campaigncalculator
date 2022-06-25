@@ -267,12 +267,12 @@ li.ad{
 
 .disabled img{
     opacity: 50%;
-
+}
 
 .btn-container {
     float: right;
-    display: inline;
-        
+    display: inline;  
+
 }
 
 .btn-container button {
@@ -392,3 +392,7 @@ li.camp {
 
 }
 
+/* criação de ajuste para deixar vísivel o alerta de arrastar imagem no adset*/
+.alerta-arrastar-imagem{
+    color: black;
+}
