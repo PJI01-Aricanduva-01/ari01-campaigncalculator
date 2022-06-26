@@ -29,12 +29,12 @@ app.register_blueprint(simplepage)
 @app.route('/index') #rota para index
 @app.route('/') #mesma rota para /
 def index():
-    if "user" in session:
+    if "user" in session: #verificar se o usuario está logado na aplicação
         per = permitir(session["user"][2])
         if per == 0:
             #agency = Agency.query.filter_by(agency_id=1).first()
             fil = session["user"][1]
-            campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all()
+            campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all() #faz um filtro de acordo com a agencia da pessoa.
             #campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
             return render_template('index.html', campsets=campaignsets) #chamada do template index
         else:
@@ -57,7 +57,7 @@ def campaignset(campaignset_id):
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
         campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
         # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
-        if campaignset.agency_id == session["user"][1]:     
+        if campaignset.agency_id == session["user"][1]: #verifica se o usuario pode acessa essa campanha.    
             return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
         else:
             flash("Acesso negado")
