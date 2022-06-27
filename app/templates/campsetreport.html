@@ -33,14 +33,14 @@
                                     <ul class="content-list-report ad">
                                         {% for adId, ad in adset|groupby("Ad.ad_id") %}
                                             <li class="list-card-report ad">
-                                                <h5>{{ adId }} - {{ ad[0].Ad.name }}</h5>
-                                                {% if ad[0].File.deleted == 0 %}
+                                                <h5>{{ adId }} - {{ ad[-1].Ad.name }}</h5>
+                                                {% if ad[-1].File.deleted == 0 %}
                                                 <div class="flex flImage">
-                                                    <img src="{{ ad[0].File.file_url }}">
+                                                    <img src="{{ ad[-1].File.file_url }}">
                                                 </div>
                                                 {% endif %}
-                                                <p>{{ ad[0].Ad.campaign_creative }}</p>
-                                                <p>{{ ad[0].Ad.cta_link }}</p>
+                                                <p>{{ ad[-1].Ad.campaign_creative }}</p>
+                                                <p>{{ ad[-1].Ad.cta_link }}</p>
                                             </li>
                                         {% endfor %}
                                     </ul>
