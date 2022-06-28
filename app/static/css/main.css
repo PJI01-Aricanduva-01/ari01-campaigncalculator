@@ -57,7 +57,9 @@ ul.content-list-report{
     background-color: orange;
 }
 
-
+.right-content{
+    align-items: right;
+}
 
 li.list-card, li.list-card-report{
     background-color: rgb(61, 35, 209);

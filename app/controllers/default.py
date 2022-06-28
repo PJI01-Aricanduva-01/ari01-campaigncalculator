@@ -44,10 +44,10 @@ def index():
             #agency = Agency.query.filter_by(agency_id=1).first()
             fil = session["user"][1]
             campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all()
-            if not campaignsets:
-                campaignsets = [None]
+            # if not campaignsets:
+            #     campaignsets = [None]
             #campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
-            return render_template('index.html', campsets=campaignsets) #chamada do template index
+            return render_template('index.html', agency=fil, campsets=campaignsets) #chamada do template index
         else:
             flash("Você não tem permissão do Responsável da agencia para acessa as campanhas. \n Entre em contato com Responsável")
             return redirect(url_for("simplepage.logout"))

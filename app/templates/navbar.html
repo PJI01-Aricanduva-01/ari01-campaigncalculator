@@ -8,18 +8,23 @@
 
       <!-- Botão Sobre -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('about') }}">Sobre</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('simplepage.useragency') }}">Agencia</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('simplepage.logout') }}">Logout</a>
-          </li>
-        </ul>
+        <div class="left-content">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('about') }}">Sobre</a>
+            </li>
+          </ul>
+        </div>
+        <div class="right-content">
+          <ul class="navbar-nav mr-auto ">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('simplepage.useragency') }}">Agencia: {{ agency }}</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('simplepage.logout') }}">Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="btn-container">
         <p class="nome-acessibilidade">Acessibilidade</p>
