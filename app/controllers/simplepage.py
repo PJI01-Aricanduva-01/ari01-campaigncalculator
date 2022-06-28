@@ -1,12 +1,11 @@
 
 from flask import Blueprint, redirect, url_for, render_template, request, flash, session
 from flask_login import login_user, logout_user
-from app.models.formagency import AgencyForm
 from app.models.user import *
 from app.models.login import LoginForm
 from app.models.formuser import UserForm
 from app.models.agency import *
-from app.models.formagency import AgencyForm
+from app.models.formagency import *
 from app.models.credential import Credential
 from app import db
 
@@ -101,7 +100,7 @@ def login():
 def useragency():
 
     if "user" in session:
-        form = AgencyForm()
+        form = AgencyFormChoices()
         form.user_id.choices = [(g.credential_id, g.name) for g in User.query.filter_by(agency_id=session["user"][1]).all()]
 
         user_choice = form.user_id.data

@@ -1,5 +1,6 @@
 #importando as bibliotecas FLASK
 from flask import render_template, redirect, url_for, session, flash
+from sqlalchemy import null
 
 #importando as dependencias da própria aplicação
 from app import app, db
@@ -38,11 +39,13 @@ def error_404():
 @app.route('/') #mesma rota para /
 def index():
     if "user" in session:
-        per = permitir(session["user"][1])
-        if per == 0:
+        per = permitir(session["user"][2])
+        if per == False:
             #agency = Agency.query.filter_by(agency_id=1).first()
             fil = session["user"][1]
             campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all()
+            if not campaignsets:
+                campaignsets = [None]
             #campaignsets = Campaign_Set.query.all() #consulta no banco de dados para trazer as CampSets
             return render_template('index.html', campsets=campaignsets) #chamada do template index
         else:

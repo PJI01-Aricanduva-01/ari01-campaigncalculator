@@ -186,15 +186,33 @@ li.ad{
     color: red;
     height: 100px;
     width: 300px;
-    position: absolute;
-    top: 60px;
+    position: fixed;
+    top: 150px;
     right: 80px;
 }
 
 
 .permissao{
-    text-align: left;
+    display: inline-flex;
+    position: fixed;
+    right: 280px;
+    top: 160px;
+}
+
+.negar{
+    display: inline-flex;
+    position: fixed;
     right: 200px;
+    top: 160px;
+}
+
+#novoNome{
+    position: static;
+    width: 200px;
+}
+
+.subLabel{
+    position: fixed;
 }
 
 .label{
