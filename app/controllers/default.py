@@ -40,7 +40,9 @@ def error_404():
 def index():
     if "user" in session:
         per = permitir(session["user"][2])
-        if per == False:
+        if per == False or per == True:
+            if per == True:
+                flash("Você precisa entra em contanto com Responsável da empresa.")
             #agency = Agency.query.filter_by(agency_id=1).first()
             fil = session["user"][1]
             campaignsets = Campaign_Set.query.filter_by(agency_id=fil).all()
