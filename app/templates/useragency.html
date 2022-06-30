@@ -4,12 +4,13 @@
 <form method="post">
     {{ form.csrf_token }}
     <table class="table table-hover">
+        <div class="subLabel">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nome</th>
-            <th scope="col" class="label">Permissão</th>
-            <th scope="col" class="label1">Negar</th>
+            <th scope="col" class="permissao">Permissão</th>
+            <th scope="col" class="negar">Negar</th>
         </tr>
         </thead>
         <tbody>
@@ -18,14 +19,14 @@
                 <th scope="row">1</th>
             
                     <td>  
-                        <div class="mb-3 w-0 col-sm-4" id="novalabel">
+                        <div class="mb-3 w-0 col-sm-4" id="novoNome">
                             {{ form.user_id(class="form-select") }}
                         </div>
                 </td>
                     <td>
                     
                     {% for subfield in form.permissao %}
-                        <td class="permissao">{{ subfield }}</td>
+                        <td>{{ subfield }}</td>
                         
                     {% endfor %}
                     </td>
@@ -33,6 +34,7 @@
             </tr>
         
         </tbody>
+        </div>
     </table>
     <div>
         <button type="submit" class="btn btn-success d-grid gap-3 col-6 mx-auto" >Atualizar</button>
