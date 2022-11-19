@@ -33,15 +33,19 @@ select{
 
 ul.content-list, ul.adset{
     display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    
     /* grid-auto-flow: column;
     grid-auto-flow: row;
     grid-template-columns: repeat(4, 1fr);
-    list-style-type: none; */
+    list-style-type: none; 
 
     grid-template-columns: repeat(4, 1fr);
     @media (min-width: 52em) {
         grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
-    }
+    }*/
 }
 
 ul{
@@ -59,6 +63,11 @@ ul.content-list-report{
 
 .right-content{
     align-items: right;
+}
+
+.container-nav{
+
+    width: 100%;
 }
 
 li.list-card, li.list-card-report{
@@ -193,31 +202,30 @@ li.ad{
     right: 80px;
 }
 
-
-.permissao{
-    display: inline-flex;
-    position: fixed;
-    right: 280px;
-    top: 160px;
-}
-
-.negar{
-    display: inline-flex;
-    position: fixed;
-    right: 200px;
-    top: 160px;
-}
-
-#novoNome{
+.menu-agency{
     position: static;
-    width: 200px;
 }
 
 .subLabel{
-    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
 }
 
+.permissao{
+    position: relative;
+    text-align: end;
+}
+
+.negar{
+    position: relative;
+    text-align: end;
+}
+
+
 .label{
+    background-color: white;
     position: fixed;
     right: 300px;
     top: 100px;
@@ -292,7 +300,6 @@ li.ad{
 .btn-container {
     float: right;
     display: inline;  
-
 }
 
 .btn-container button {
@@ -424,7 +431,109 @@ li.camp {
 }
 
 .label {
-    position: fixed;
+    position: absolute;
     top: 65px;
     right: 30px;
+}
+
+@media (max-width: 991px) {
+    
+    .nome-acessibilidade{
+        position: fixed;
+        top: 20px;
+        left: 250px;
+    }
+   
+    .botoes-aumentar-reduzir-fonte{
+        position: fixed;
+        top: 60px;
+        left: 240px;
+    }
+    .label{
+        position: fixed;
+        top: 60px;
+        left: 360px;
+    }
+
+    .btn-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+
+    .navbar-toggler{
+        position: absolute;
+        top: 40px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .btn-container{
+        /*display: flex;
+        align-items: center;
+        justify-content: flex-start;*/
+        align-items: end;
+        left: 30px;
+        width: 300px;
+    }
+
+    .nome-acessibilidade{
+        position: relative;
+        top: 5px;
+        left: -170px;
+    }
+   
+    .botoes-aumentar-reduzir-fonte{
+        position: relative;
+        top: 5px;
+        left: -120px;
+    }
+    .label{
+        position: relative;
+        top: -20px;
+        left: -120px;
+    }
+    
+   
+}
+
+@media (max-width: 500px) {
+
+    .btn-container{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        top: 12px;
+    }
+
+    .nome-acessibilidade{
+        position: relative;
+        top: 10px;
+        left: -40px;
+    }
+   
+    .botoes-aumentar-reduzir-fonte{
+        position: relative;
+        top: 10px;
+        left: -40px;
+    }
+    .label{
+        position: relative;
+        top: -20px;
+        left: 10px;
+    }
+        
+    .fotoxadre{
+        opacity: 0;
+        display: none;
+    }
+    ul.content-list, ul.adset{
+        display: inline;    
+    }
+
 }

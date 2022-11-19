@@ -1,6 +1,6 @@
 #importando as bibliotecas FLASK
 from flask import render_template, redirect, url_for, session, flash
-from sqlalchemy import null
+
 
 #importando as dependencias da própria aplicação
 from app import app, db
@@ -23,6 +23,7 @@ from app.models.fuction import permitir
 from app.models.file import *
 
 from app.controllers.simplepage import simplepage
+from app.models.user import User
 
 
 app.register_blueprint(simplepage)
@@ -69,9 +70,11 @@ def campaignset(campaignset_id):
     if "user" in session:
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
         campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
+        agencycheck = campaignset.agency_id
+        print(agencycheck)
         # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
-        if campaignset.agency_id == session["user"][1]:     
-            return render_template('campaignset.html', agency=campaignset.agency_id,campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
+        if 3 == session["user"][1]:     
+            return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
         else:
             flash("Acesso negado")
             return redirect(url_for('index'))
@@ -84,6 +87,7 @@ def campaignset(campaignset_id):
 def campaignsetcreate():
     if "user" in session:
         form = CampaignSetForm() #criação do objeto formulário
+        agency = session["user"][1]
 
         if form.validate_on_submit(): #verificação dos dados pelo usuário. No evento de clique Submit, o wtforms recupera os dados e faz a verificação atravez desse métoro
             name = form.name.data
@@ -135,7 +139,7 @@ def campaigncreate(campaignset_id):
     if "user" in session:
         form = CampaignForm()
         form.campaignobjective.choices = [(g.campaign_objective_id, g.name) for g in Campaign_Objective.query.all()]
-
+    
 
         if form.validate_on_submit():
             name = form.name.data

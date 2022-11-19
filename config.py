@@ -6,7 +6,7 @@ dotenv.load_dotenv()
 DEBUG = True
 
 #configurando a URI para o DB do SQLAlchemy
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@campaigncalculator-db.mysql.database.azure.com/campcalc-db'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://campcalc_adm:eDNQ^rJ$FHTr43Z@calculatorcampaign-db.mysql.database.azure.com/campcalc'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 

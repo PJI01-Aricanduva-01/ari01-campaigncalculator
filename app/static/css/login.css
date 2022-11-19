@@ -20,3 +20,15 @@ body{
     background-color: rgb(18, 40, 138);
 }
 
+@media (max-width: 500px) {
+    #telalogin{
+        width: 80%;
+        height: 80%;
+    }
+
+    #loginAj{
+        width: 70%;
+        position: relative;
+        top: 50px;
+    }
+}
