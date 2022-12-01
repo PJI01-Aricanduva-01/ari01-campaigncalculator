@@ -1,30 +1,24 @@
 #importando as bibliotecas FLASK
-from flask import render_template, redirect, url_for, session, flash
-
+from azure.storage.blob import BlobServiceClient
+from flask import flash, redirect, render_template, session, url_for
 
 #importando as dependencias da própria aplicação
 from app import app, db
-
-from azure.storage.blob import BlobServiceClient
-
-
+from app.controllers.simplepage import simplepage
+from app.models.ad import Ad
+from app.models.adset import Ad_Set
 #importando os models
 from app.models.agency import Agency
-from app.models.formcampaignset import CampaignSetForm
-from app.models.campaignset import Campaign_Set
 from app.models.campaign import Campaign
-from app.models.formcampaign import CampaignForm
 from app.models.campaignobjective import Campaign_Objective
-from app.models.adset import Ad_Set
-from app.models.formadset import AdsetForm
-from app.models.ad import Ad
-from app.models.formad import AdForm
-from app.models.fuction import permitir
+from app.models.campaignset import Campaign_Set
 from app.models.file import *
-
-from app.controllers.simplepage import simplepage
+from app.models.formad import AdForm
+from app.models.formadset import AdsetForm
+from app.models.formcampaign import CampaignForm
+from app.models.formcampaignset import CampaignSetForm
+from app.models.fuction import permitir
 from app.models.user import User
-
 
 app.register_blueprint(simplepage)
 
@@ -71,9 +65,8 @@ def campaignset(campaignset_id):
         campaignset = Campaign_Set.query.filter_by(campaign_set_id=campaignset_id).first() #consulta campaignset no banco de dados usando o id passado como filtro
         campaigns = Campaign.query.filter_by(campaign_set_id=campaignset_id).all() #consulta as campanhas no banco de dados usando o id do campset clicado como filtro
         agencycheck = campaignset.agency_id
-        print(agencycheck)
         # campobj = Campaign_Objective.query.filter_by(campaign_objective_id=camp) - Fazer Link com objetivos
-        if 3 == session["user"][1]:     
+        if agencycheck == session["user"][1]:     
             return render_template('campaignset.html', campaignset=campaignset, campaigns=campaigns) #chamada para o template campaignset
         else:
             flash("Acesso negado")
