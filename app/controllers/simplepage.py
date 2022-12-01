@@ -1,5 +1,5 @@
 
-from flask import Blueprint, redirect, url_for, render_template, request, flash, session
+from flask import Blueprint, redirect, url_for, render_template, request, flash, session, jsonify
 from flask_login import login_user, logout_user
 from app.models.user import *
 from app.models.login import LoginForm
@@ -7,6 +7,9 @@ from app.models.formuser import UserForm
 from app.models.agency import *
 from app.models.formagency import *
 from app.models.credential import Credential
+from app.models.campaignset import Campaign_Set
+from app.models.campaign import Campaign
+from app.models.adset import Ad_Set
 from app import db
 
 simplepage = Blueprint('simplepage', __name__, static_folder="static", template_folder="templates")
@@ -139,3 +142,46 @@ def logout():
     logout_user()
     return redirect(url_for('simplepage.login'))
 
+
+@simplepage.route('/apiexterna')
+def apiexterna():
+    agency_check = session['user'][1]
+    print(agency_check)
+    camp_set_info = Campaign_Set.query.filter_by(agency_id=agency_check).all()
+    camp_info = Campaign.query.filter_by(agency_id=agency_check).all()
+    ad_info = Ad_Set.query.filter_by(agency_id=agency_check).all()
+    
+    x = 0
+    camp_set_name = []
+    camp_name = []
+    adname_j = []
+    adpublic = []
+    adbudget = []
+    date_start = []
+    date_end = []
+    apiex = {}
+    total = 0
+    
+    while(True): #Criação do objeto Json. 
+        camp_name.append(camp_info[x].name)
+        camp_set_name.append(camp_set_info[x].name)
+        adname_j.append(ad_info[x].name)
+        date_start.append(ad_info[x].date_start)
+        date_end.append(ad_info[x].date_end)
+        adpublic.append(ad_info[x].public)
+        adbudget.append(ad_info[x].total_budget)
+        total = total + adbudget[x]
+        x = x + 1
+        if x == len(camp_set_info):
+            apiex['1 - Campanha'] = camp_name
+            apiex['2 - Campanha Name'] = camp_set_name
+            apiex['3 - Ad name'] = adname_j
+            apiex['4 - Publico Alvo'] = adpublic
+            apiex['5 - Data de Inicio'] = date_start
+            apiex['6 - Data de Termino'] = date_end
+            apiex['7 - Budget por campanha'] = adbudget
+            apiex['8 - Total'] = total
+            break
+
+    '''api = camp_set_info[0].name'''
+    return jsonify(apiex) #Transformando o dicionario em Json.

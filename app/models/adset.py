@@ -16,7 +16,7 @@ class Ad_Set(db.Model):
     date_end = db.Column(db.DateTime)
     public = db.Column(db.String)
     budget = db.Column(db.Integer)
-    total_budget = db.Column(db.Numeric, db.Computed('budget * (date_end - date_start)'))
+    total_budget = db.Column(db.Numeric, db.Computed('budget * (date_end - date_start.day)'))
     agency_id = db.Column(db.Integer, db.ForeignKey('agency.agency_id'))
     
 

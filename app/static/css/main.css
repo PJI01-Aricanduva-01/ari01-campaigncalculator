@@ -498,6 +498,10 @@ li.camp {
         top: -20px;
         left: -120px;
     }
+    .flashes{
+        top: 120px;
+        right: 10px;
+    }
     
    
 }
@@ -534,6 +538,12 @@ li.camp {
     }
     ul.content-list, ul.adset{
         display: inline;    
+    }
+
+    .flashes{
+        top: 120px;
+        left: -30px;
+        font-size: x-small;
     }
 
 }
